@@ -41,6 +41,8 @@ from django_filters.filters import (
     BaseInFilter,
     BaseRangeFilter,
     UUIDFilter,
+    SimpleOrderingFilter,
+    OrderingFilter,
     LOOKUP_TYPES)
 
 from tests.models import Book, User
@@ -957,3 +959,63 @@ class BaseRangeFilterTests(TestCase):
         f = NumberInFilter()
         f.filter(qs, [1, 2])
         qs.filter.assert_called_once_with(None__range=[1, 2])
+
+
+class SimpleOrderingFilterTests(TestCase):
+    def test_default_field(self):
+        f = SimpleOrderingFilter()
+        field = f.field
+        self.assertIsInstance(field, forms.ChoiceField)
+
+    def test_filtering(self):
+        qs = mock.Mock(spec=['order_by'])
+        f = SimpleOrderingFilter()
+        f.filter(qs, ['a', 'b'])
+        qs.order_by.assert_called_once_with('a', 'b')
+
+    def test_filtering_with_fields_map(self):
+        qs = mock.Mock(spec=['order_by'])
+        f = SimpleOrderingFilter(fields={'a': 'b'})
+        f.filter(qs, ['a', '-a'])
+        qs.order_by.assert_called_once_with('b', '-b')
+
+    def test_filtering_skipped_with_none_value(self):
+        qs = mock.Mock(spec=['order_by'])
+        f = SimpleOrderingFilter()
+        result = f.filter(qs, None)
+        self.assertEqual(qs, result)
+
+
+class OrderingFilterTests(TestCase):
+    def test_expanded_choices(self):
+        f = OrderingFilter(choices=(
+            ('a', 'A'),
+            ('b', 'B'),
+        ))
+
+        self.assertSequenceEqual(f.field.choices, (
+            ('a', 'A'),
+            ('-a', 'A (descending)'),
+            ('b', 'B'),
+            ('-b', 'B (descending)'),
+        ))
+
+    def test_choices_from_fields(self):
+        f = OrderingFilter(fields={
+            'a': 'c',
+            'b': 'd',
+        })
+
+        self.assertSequenceEqual(f.field.choices, (
+            ('a', 'A'),
+            ('-a', 'A (descending)'),
+            ('b', 'B'),
+            ('-b', 'B (descending)'),
+        ))
+
+    def test_no_declared_descending_choices(self):
+        with self.assertRaises(AssertionError):
+            OrderingFilter(choices=(
+                ('a', 'A'),
+                ('-a', 'A (decending)'),
+            ))

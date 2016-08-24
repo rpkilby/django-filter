@@ -366,3 +366,41 @@ class OrderByFieldDeprecationTests(TestCase):
                 order_by_field = 'field'
 
             self.assertEqual(F._meta.order_by_field, 'field')
+
+
+class OrderByDeprecationTests(TestCase):
+    def test_order_by_notification(self):
+
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+
+            class F(FilterSet):
+                class Meta:
+                    order_by = True
+
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
+
+    def test_order_by_field_notification(self):
+
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+
+            class F(FilterSet):
+                class Meta:
+                    order_by_field = 'field'
+
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
+
+    def test_get_order_by_assertion(self):
+        with self.assertRaises(AssertionError):
+            class F(FilterSet):
+                def get_order_by(self):
+                    pass
+
+    def test_get_ordering_field_assertion(self):
+        with self.assertRaises(AssertionError):
+            class F(FilterSet):
+                def get_ordering_field(self):
+                    pass

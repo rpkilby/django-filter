@@ -11,12 +11,13 @@ from django.db.models.constants import LOOKUP_SEP
 from django.utils import six
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 
 from .fields import (
     Lookup, LookupTypeField, BaseCSVField, BaseRangeField, RangeField,
     DateRangeField, DateTimeRangeField, TimeRangeField, IsoDateTimeField
 )
-from .utils import deprecate, label_for_filter
+from .utils import deprecate, label_for_filter, pretty_name
 
 
 __all__ = [
@@ -38,7 +39,9 @@ __all__ = [
     'MultipleChoiceFilter',
     'NumberFilter',
     'NumericRangeFilter',
+    'OrderingFilter',
     'RangeFilter',
+    'SimpleOrderingFilter',
     'TimeFilter',
     'TimeRangeFilter',
     'TypedChoiceFilter',
@@ -482,6 +485,134 @@ class BaseRangeFilter(BaseCSVFilter):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('lookup_expr', 'range')
         super(BaseRangeFilter, self).__init__(*args, **kwargs)
+
+
+class SimpleOrderingFilter(BaseCSVFilter, ChoiceFilter):
+    """
+    Enable queryset ordering. This filter is based on the ``ChoiceFilter`` and
+    expects ``choices``. An optional ``fields`` argument accepts a mapping of
+    {paramater names: model field names}. This allows you to alias/mask the
+    underlying model field names and maintain consistency with the filters.
+
+    This filter is also CSV-based, and accepts multiple ordering params. The
+    HTML select element does not enable use of this, but can be useful in APIs.
+
+    ex::
+
+        class UserFilter(FilterSet):
+            account = CharFilter(name='username')
+            status = NumberFilter(name='status')
+
+            o = SimpleOrderingFilter(
+                choices=(
+                    ('account', 'Account'),
+                    ('-account', 'Account (descending)'),
+                    ('status', 'Status'),
+                    ('-status', 'Status (descending)'),
+                ),
+                fields={
+                    'account': 'username',
+                },
+            )
+
+            class Meta:
+                model = User
+    """
+
+    def __init__(self, *args, **kwargs):
+        self.fields_map = kwargs.pop('fields', {})
+
+        kwargs.setdefault('label', _('Ordering'))
+        super(SimpleOrderingFilter, self).__init__(*args, **kwargs)
+
+    def get_ordering_value(self, param):
+        descending = param.startswith('-')
+        param = param[1:] if descending else param
+        field_name = self.fields_map.get(param, param)
+
+        return "-%s" % field_name if descending else field_name
+
+    def filter(self, qs, value):
+        if value in EMPTY_VALUES:
+            return qs
+
+        ordering = [self.get_ordering_value(param) for param in value]
+        return qs.order_by(*ordering)
+
+
+class OrderingFilter(SimpleOrderingFilter):
+    """
+    OrderingFilter reduces some of the verbosity of SimpleOrderingFilter. The
+    provided ``choices`` are automatically expanded to include their descending
+    counterparts. The ``choices`` are also optional and may be left blank
+    and will instead be built from the ``fields`` mapping.
+
+    ex::
+
+        class UserFilter(FilterSet):
+            account = CharFilter(name='username')
+
+            o = AutoOrderingFilter(
+                choices=(
+                    ('account', 'Account'),
+                    ('first_name', 'First name'),
+                    ('last_name', 'Last name'),
+                ),
+                fields={
+                    'account': 'username',
+                },
+            )
+
+            class Meta:
+                model = User
+                fields = ['first_name', 'last_name']
+
+
+    The following filter produces an identical output to the above::
+
+        class UserFilter(FilterSet):
+            account = CharFilter(name='username')
+
+            o = AutoOrderingFilter(
+                fields={
+                    'account': 'username',
+                    'first_name': 'first_name',
+                    'last_name': 'last_name',
+                },
+            )
+
+            class Meta:
+                model = User
+                fields = ['first_name', 'last_name']
+    """
+
+    def __init__(self, *args, **kwargs):
+        choices = kwargs.get('choices', None)
+        if not choices:
+            fields = kwargs.get('fields', {})
+            choices = self.default_choices(fields)
+        choices = self.expand_choices(choices)
+        kwargs['choices'] = choices
+
+        super(OrderingFilter, self).__init__(*args, **kwargs)
+
+    def default_choices(self, fields):
+        return tuple((p, pretty_name(p)) for p in fields)
+
+    def expand_choices(self, choices):
+        """
+        Expand the given choices to include descending options
+        """
+        desc = []
+        for param, display in choices:
+            assert not param.startswith('-')
+
+            param = '-%s' % param
+            display = ugettext('%s (descending)' % display)
+            desc.append((param, display))
+
+        # interleave the choices and descending choices
+        return [val for pair in zip(choices, desc) for val in pair]
 
 
 class MethodFilter(Filter):

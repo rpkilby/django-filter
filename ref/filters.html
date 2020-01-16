@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Filter Reference &mdash; django-filter 2.0.0 documentation</title>
+  <title>Filter Reference &mdash; django-filter 2.1.0 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Field Reference" href="fields.html" />
     <link rel="prev" title="FilterSet Options" href="filterset.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                2.0.0
+                2.1
               </div>
             
           
@@ -136,6 +138,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#daterangefilter"><code class="docutils literal notranslate"><span class="pre">DateRangeFilter</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#datefromtorangefilter"><code class="docutils literal notranslate"><span class="pre">DateFromToRangeFilter</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#datetimefromtorangefilter"><code class="docutils literal notranslate"><span class="pre">DateTimeFromToRangeFilter</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#isodatetimefromtorangefilter"><code class="docutils literal notranslate"><span class="pre">IsoDateTimeFromToRangeFilter</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#timerangefilter"><code class="docutils literal notranslate"><span class="pre">TimeRangeFilter</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#allvaluesfilter"><code class="docutils literal notranslate"><span class="pre">AllValuesFilter</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#allvaluesmultiplefilter"><code class="docutils literal notranslate"><span class="pre">AllValuesMultipleFilter</span></code></a></li>
@@ -151,6 +154,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="fields.html">Field Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="groups.html">Group Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="widgets.html">Widget Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="settings.html">Settings Reference</a></li>
 </ul>
@@ -227,7 +231,7 @@
 <div class="section" id="core-arguments">
 <span id="id1"></span><h2>Core Arguments<a class="headerlink" href="#core-arguments" title="Permalink to this headline">¶</a></h2>
 <p>The following are the core arguments that apply to all filters. Note that they
-are joined to construct the complete <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/models/lookups/#module-django.db.models.lookups">lookup expression</a> that is the left hand
+are joined to construct the complete <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/lookups/#module-django.db.models.lookups">lookup expression</a> that is the left hand
 side of the ORM <code class="docutils literal notranslate"><span class="pre">.filter()</span></code> call.</p>
 <div class="section" id="field-name">
 <h3><code class="docutils literal notranslate"><span class="pre">field_name</span></code><a class="headerlink" href="#field-name" title="Permalink to this headline">¶</a></h3>
@@ -238,7 +242,7 @@ lookup separator (<code class="docutils literal notranslate"><span class="pre">_
 </div>
 <div class="section" id="lookup-expr">
 <h3><code class="docutils literal notranslate"><span class="pre">lookup_expr</span></code><a class="headerlink" href="#lookup-expr" title="Permalink to this headline">¶</a></h3>
-<p>The <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/models/querysets/#field-lookups">field lookup</a> that should be performed in the filter call. Defaults to
+<p>The <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/querysets/#field-lookups">field lookup</a> that should be performed in the filter call. Defaults to
 <code class="docutils literal notranslate"><span class="pre">exact</span></code>. The <code class="docutils literal notranslate"><span class="pre">lookup_expr</span></code> can contain transforms if the expression parts
 are joined by the ORM lookup separator (<code class="docutils literal notranslate"><span class="pre">__</span></code>). e.g., filter a datetime by its
 year part <code class="docutils literal notranslate"><span class="pre">year__gt</span></code>.</p>
@@ -250,7 +254,7 @@ year part <code class="docutils literal notranslate"><span class="pre">year__gt<
 all filters.</p>
 <div class="section" id="label">
 <h3><code class="docutils literal notranslate"><span class="pre">label</span></code><a class="headerlink" href="#label" title="Permalink to this headline">¶</a></h3>
-<p>The label as it will apear in the HTML, analogous to a form field’s label
+<p>The label as it will appear in the HTML, analogous to a form field’s label
 argument. If a label is not provided, a verbose label will be generated based
 on the field <code class="docutils literal notranslate"><span class="pre">field_name</span></code> and the parts of the <code class="docutils literal notranslate"><span class="pre">lookup_expr</span></code>
 (see: <a class="reference internal" href="settings.html#verbose-lookups-setting"><span class="std std-ref">FILTERS_VERBOSE_LOOKUPS</span></a>).</p>
@@ -318,17 +322,17 @@ to the widgets that are included with Django that you can use there are
 additional ones that django-filter provides which may be useful:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="widgets.html#link-widget"><span class="std std-ref">LinkWidget</span></a> – this displays the options in a manner
+<li><p><a class="reference internal" href="widgets.html#link-widget"><span class="std std-ref">LinkWidget</span></a> – this displays the options in a manner
 similar to the way the Django Admin does, as a series of links. The link
-for the selected option will have <code class="docutils literal notranslate"><span class="pre">class=&quot;selected&quot;</span></code>.</li>
-<li><a class="reference internal" href="widgets.html#boolean-widget"><span class="std std-ref">BooleanWidget</span></a> – this widget converts its input
+for the selected option will have <code class="docutils literal notranslate"><span class="pre">class=&quot;selected&quot;</span></code>.</p></li>
+<li><p><a class="reference internal" href="widgets.html#boolean-widget"><span class="std std-ref">BooleanWidget</span></a> – this widget converts its input
 into Python’s True/False values. It will convert all case variations of
-<code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code> into the internal Python values.</li>
-<li><a class="reference internal" href="widgets.html#csv-widget"><span class="std std-ref">CSVWidget</span></a> – this widget expects a comma separated
+<code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code> into the internal Python values.</p></li>
+<li><p><a class="reference internal" href="widgets.html#csv-widget"><span class="std std-ref">CSVWidget</span></a> – this widget expects a comma separated
 value and converts it into a list of string values. It is expected that
-the field class handle a list of values as well as type conversion.</li>
-<li><a class="reference internal" href="widgets.html#range-widget"><span class="std std-ref">RangeWidget</span></a> – this widget is used with <code class="docutils literal notranslate"><span class="pre">RangeFilter</span></code>
-to generate two form input elements using a single field.</li>
+the field class handle a list of values as well as type conversion.</p></li>
+<li><p><a class="reference internal" href="widgets.html#range-widget"><span class="std std-ref">RangeWidget</span></a> – this widget is used with <code class="docutils literal notranslate"><span class="pre">RangeFilter</span></code>
+to generate two form input elements using a single field.</p></li>
 </ul>
 </div></blockquote>
 </div>
@@ -394,15 +398,15 @@ explicitly passed when the filter is declared on the <code class="docutils liter
 well as a choice for filtering by <code class="docutils literal notranslate"><span class="pre">None</span></code> values. Each of the arguments have a
 corresponding global setting (<a class="reference internal" href="settings.html"><span class="doc">Settings Reference</span></a>).</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">empty_label</span></code>: The display label to use for the select choice to not filter.
+<li><p><code class="docutils literal notranslate"><span class="pre">empty_label</span></code>: The display label to use for the select choice to not filter.
 The choice may be disabled by setting this argument to <code class="docutils literal notranslate"><span class="pre">None</span></code>. Defaults to
-<code class="docutils literal notranslate"><span class="pre">FILTERS_EMPTY_CHOICE_LABEL</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">null_label</span></code>: The display label to use for the choice to filter by <code class="docutils literal notranslate"><span class="pre">None</span></code>
+<code class="docutils literal notranslate"><span class="pre">FILTERS_EMPTY_CHOICE_LABEL</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">null_label</span></code>: The display label to use for the choice to filter by <code class="docutils literal notranslate"><span class="pre">None</span></code>
 values. The choice may be disabled by setting this argument to <code class="docutils literal notranslate"><span class="pre">None</span></code>.
-Defaults to <code class="docutils literal notranslate"><span class="pre">FILTERS_NULL_CHOICE_LABEL</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">null_value</span></code>: The special value to match to enable filtering by <code class="docutils literal notranslate"><span class="pre">None</span></code>
+Defaults to <code class="docutils literal notranslate"><span class="pre">FILTERS_NULL_CHOICE_LABEL</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">null_value</span></code>: The special value to match to enable filtering by <code class="docutils literal notranslate"><span class="pre">None</span></code>
 values. This value defaults <code class="docutils literal notranslate"><span class="pre">FILTERS_NULL_CHOICE_VALUE</span></code> and needs to be
-a non-empty value (<code class="docutils literal notranslate"><span class="pre">''</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">[]</span></code>, <code class="docutils literal notranslate"><span class="pre">()</span></code>, <code class="docutils literal notranslate"><span class="pre">{}</span></code>).</li>
+a non-empty value (<code class="docutils literal notranslate"><span class="pre">''</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">[]</span></code>, <code class="docutils literal notranslate"><span class="pre">()</span></code>, <code class="docutils literal notranslate"><span class="pre">{}</span></code>).</p></li>
 </ul>
 </div>
 <div class="section" id="typedchoicefilter">
@@ -430,7 +434,7 @@ and the filter will form the OR of these choices by default to match items.
 The filter will form the AND of the selected choices when the <code class="docutils literal notranslate"><span class="pre">conjoined=True</span></code>
 argument is passed to this class.</p>
 <p>Multiple choices are represented in the query string by reusing the same key with
-different values (e.g. ‘’?status=Regular&amp;status=Admin’‘).</p>
+different values (e.g. ‘’?status=Regular&amp;status=Admin’’).</p>
 <p><code class="docutils literal notranslate"><span class="pre">distinct</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code> as to-many relationships will generally require this.</p>
 <p>Advanced Use: Depending on your application logic, when all or no choices are
 selected, filtering may be a noop. In this case you may wish to avoid the
@@ -500,8 +504,8 @@ passed, it will be invoked with <code class="docutils literal notranslate"><span
 This allows you to easily filter by properties on the request object without
 having to override the <code class="docutils literal notranslate"><span class="pre">FilterSet.__init__</span></code>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You should expect that the <cite>request</cite> object may be <cite>None</cite>.</p>
+<p class="admonition-title">Note</p>
+<p>You should expect that the <cite>request</cite> object may be <cite>None</cite>.</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">departments</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">request</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
@@ -583,7 +587,7 @@ with the Postgres Numerical Range Fields, including <code class="docutils litera
 <code class="docutils literal notranslate"><span class="pre">BigIntegerRangeField</span></code> and <code class="docutils literal notranslate"><span class="pre">FloatRangeField</span></code> (available since Django 1.8). The default
 widget used is the <code class="docutils literal notranslate"><span class="pre">RangeField</span></code>.</p>
 <p>Regular field lookups are available in addition to several containment lookups, including
-<code class="docutils literal notranslate"><span class="pre">overlap</span></code>, <code class="docutils literal notranslate"><span class="pre">contains</span></code>, and <code class="docutils literal notranslate"><span class="pre">contained_by</span></code>. More details in the Django <a class="reference external" href="https://docs.djangoproject.com/en/1.8/ref/contrib/postgres/fields/#querying-range-fields">docs</a>.</p>
+<code class="docutils literal notranslate"><span class="pre">overlap</span></code>, <code class="docutils literal notranslate"><span class="pre">contains</span></code>, and <code class="docutils literal notranslate"><span class="pre">contained_by</span></code>. More details in the Django <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/contrib/postgres/fields/#querying-range-fields">docs</a>.</p>
 <p>If the lower limit value is provided, the filter automatically defaults to <code class="docutils literal notranslate"><span class="pre">startswith</span></code>
 as the lookup and <code class="docutils literal notranslate"><span class="pre">endswith</span></code> if only the upper limit value is provided.</p>
 </div>
@@ -620,34 +624,36 @@ selections for working with date fields.</p>
 <h3><code class="docutils literal notranslate"><span class="pre">DateFromToRangeFilter</span></code><a class="headerlink" href="#datefromtorangefilter" title="Permalink to this headline">¶</a></h3>
 <p>Similar to a <code class="docutils literal notranslate"><span class="pre">RangeFilter</span></code> except it uses dates instead of numerical values. It can be used with <code class="docutils literal notranslate"><span class="pre">DateField</span></code>. It also works with <code class="docutils literal notranslate"><span class="pre">DateTimeField</span></code>, but takes into consideration only the date.</p>
 <p>Example of using the <code class="docutils literal notranslate"><span class="pre">DateField</span></code> field:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>class Comment(models.Model):
-    date = models.DateField()
-    time = models.TimeField()
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Comment</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">()</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TimeField</span><span class="p">()</span>
 
-class F(FilterSet):
-    date = DateFromToRangeFilter()
+<span class="k">class</span> <span class="nc">F</span><span class="p">(</span><span class="n">FilterSet</span><span class="p">):</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">DateFromToRangeFilter</span><span class="p">()</span>
 
-    class Meta:
-        model = Comment
-        fields = [&#39;date&#39;]
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Comment</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span>
 
-# Range: Comments added between 2016-01-01 and 2016-02-01
-f = F({&#39;date_after&#39;: &#39;2016-01-01&#39;, &#39;date_before&#39;: &#39;2016-02-01&#39;})
+<span class="c1"># Range: Comments added between 2016-01-01 and 2016-02-01</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">F</span><span class="p">({</span><span class="s1">&#39;date_after&#39;</span><span class="p">:</span> <span class="s1">&#39;2016-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;date_before&#39;</span><span class="p">:</span> <span class="s1">&#39;2016-02-01&#39;</span><span class="p">})</span>
 
-# Min-Only: Comments added after 2016-01-01
-f = F({&#39;date_after&#39;: &#39;2016-01-01&#39;})
+<span class="c1"># Min-Only: Comments added after 2016-01-01</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">F</span><span class="p">({</span><span class="s1">&#39;date_after&#39;</span><span class="p">:</span> <span class="s1">&#39;2016-01-01&#39;</span><span class="p">})</span>
 
-# Max-Only: Comments added before 2016-02-01
-f = F({&#39;date_before&#39;: &#39;2016-02-01&#39;})
-
-.. note::
-    When filtering ranges that occurs on DST transition dates ``DateFromToRangeFilter`` will use the first valid hour of the day for start datetime and the last valid hour of the day for end datetime.
-    This is OK for most applications, but if you want to customize this behavior you must extend ``DateFromToRangeFilter`` and make a custom field for it.
-
-.. warning::
-    If you&#39;re using Django prior to 1.9 you may hit ``AmbiguousTimeError`` or ``NonExistentTimeError`` when start/end date matches DST start/end respectively.
-    This occurs because versions before 1.9 don&#39;t allow to change the DST behavior for making a datetime aware.
+<span class="c1"># Max-Only: Comments added before 2016-02-01</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">F</span><span class="p">({</span><span class="s1">&#39;date_before&#39;</span><span class="p">:</span> <span class="s1">&#39;2016-02-01&#39;</span><span class="p">})</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When filtering ranges that occurs on DST transition dates <code class="docutils literal notranslate"><span class="pre">DateFromToRangeFilter</span></code> will use the first valid hour of the day for start datetime and the last valid hour of the day for end datetime.
+This is OK for most applications, but if you want to customize this behavior you must extend <code class="docutils literal notranslate"><span class="pre">DateFromToRangeFilter</span></code> and make a custom field for it.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you’re using Django prior to 1.9 you may hit <code class="docutils literal notranslate"><span class="pre">AmbiguousTimeError</span></code> or <code class="docutils literal notranslate"><span class="pre">NonExistentTimeError</span></code> when start/end date matches DST start/end respectively.
+This occurs because versions before 1.9 don’t allow to change the DST behavior for making a datetime aware.</p>
 </div>
 <p>Example of using the <code class="docutils literal notranslate"><span class="pre">DateTimeField</span></code> field:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Article</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
@@ -710,6 +716,38 @@ f = F({&#39;date_before&#39;: &#39;2016-02-01&#39;})
 </pre></div>
 </div>
 </div>
+<div class="section" id="isodatetimefromtorangefilter">
+<h3><code class="docutils literal notranslate"><span class="pre">IsoDateTimeFromToRangeFilter</span></code><a class="headerlink" href="#isodatetimefromtorangefilter" title="Permalink to this headline">¶</a></h3>
+<p>Similar to a <code class="docutils literal notranslate"><span class="pre">RangeFilter</span></code> except it uses ISO 8601 formatted values instead of numerical values. It can be used with <code class="docutils literal notranslate"><span class="pre">IsoDateTimeField</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Article</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">published</span> <span class="o">=</span> <span class="n">dajngo_filters</span><span class="o">.</span><span class="n">IsoDateTimeField</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">F</span><span class="p">(</span><span class="n">FilterSet</span><span class="p">):</span>
+    <span class="n">published</span> <span class="o">=</span> <span class="n">IsoDateTimeFromToRangeFilter</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Article</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;published&#39;</span><span class="p">]</span>
+
+<span class="n">Article</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">published</span><span class="o">=</span><span class="s1">&#39;2016-01-01T8:00:00+01:00&#39;</span><span class="p">)</span>
+<span class="n">Article</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">published</span><span class="o">=</span><span class="s1">&#39;2016-01-01T9:30:00+01:00&#39;</span><span class="p">)</span>
+<span class="n">Article</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">published</span><span class="o">=</span><span class="s1">&#39;2016-01-02T8:00:00+01:00&#39;</span><span class="p">)</span>
+
+<span class="c1"># Range: Articles published 2016-01-01 between 8:00 and 10:00</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">F</span><span class="p">({</span><span class="s1">&#39;published_after&#39;</span><span class="p">:</span> <span class="s1">&#39;2016-01-01T8:00:00+01:00&#39;</span><span class="p">,</span> <span class="s1">&#39;published_before&#39;</span><span class="p">:</span> <span class="s1">&#39;2016-01-01T10:00:00+01:00&#39;</span><span class="p">})</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">qs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+<span class="c1"># Min-Only: Articles published after 2016-01-01 8:00</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">F</span><span class="p">({</span><span class="s1">&#39;published_after&#39;</span><span class="p">:</span> <span class="s1">&#39;2016-01-01T8:00:00+01:00&#39;</span><span class="p">})</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">qs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+
+<span class="c1"># Max-Only: Articles published before 2016-01-01 10:00</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">F</span><span class="p">({</span><span class="s1">&#39;published_before&#39;</span><span class="p">:</span> <span class="s1">&#39;2016-01-01T10:00:00+0100&#39;</span><span class="p">})</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">qs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="timerangefilter">
 <h3><code class="docutils literal notranslate"><span class="pre">TimeRangeFilter</span></code><a class="headerlink" href="#timerangefilter" title="Permalink to this headline">¶</a></h3>
 <p>Similar to a <code class="docutils literal notranslate"><span class="pre">RangeFilter</span></code> except it uses time format values instead of numerical values. It can be used with <code class="docutils literal notranslate"><span class="pre">TimeField</span></code>.</p>
@@ -754,11 +792,11 @@ of the admin.</p>
 <span id="lookup-choice-filter"></span><h3><code class="docutils literal notranslate"><span class="pre">LookupChoiceFilter</span></code><a class="headerlink" href="#lookupchoicefilter" title="Permalink to this headline">¶</a></h3>
 <p>A combined filter that allows users to select the lookup expression from a dropdown.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">lookup_choices</span></code> is an optional argument that accepts multiple input
-formats, and is ultimately normlized as the choices used in the lookup
-dropdown. See <code class="docutils literal notranslate"><span class="pre">.get_lookup_choices()</span></code> for more information.</li>
-<li><code class="docutils literal notranslate"><span class="pre">field_class</span></code> is an optional argument that allows you to set the inner
-form field class used to validate the value. Default: <code class="docutils literal notranslate"><span class="pre">forms.CharField</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lookup_choices</span></code> is an optional argument that accepts multiple input
+formats, and is ultimately normalized as the choices used in the lookup
+dropdown. See <code class="docutils literal notranslate"><span class="pre">.get_lookup_choices()</span></code> for more information.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">field_class</span></code> is an optional argument that allows you to set the inner
+form field class used to validate the value. Default: <code class="docutils literal notranslate"><span class="pre">forms.CharField</span></code></p></li>
 </ul>
 <p>ex:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">price</span> <span class="o">=</span> <span class="n">django_filters</span><span class="o">.</span><span class="n">LookupChoiceFilter</span><span class="p">(</span>
@@ -830,16 +868,16 @@ comma-separated values.</p>
 <p>Enable queryset ordering. As an extension of <code class="docutils literal notranslate"><span class="pre">ChoiceFilter</span></code> it accepts
 two additional arguments that are used to build the ordering choices.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">fields</span></code> is a mapping of {model field name: parameter name}. The
+<li><p><code class="docutils literal notranslate"><span class="pre">fields</span></code> is a mapping of {model field name: parameter name}. The
 parameter names are exposed in the choices and mask/alias the field
 names used in the <code class="docutils literal notranslate"><span class="pre">order_by()</span></code> call. Similar to field <code class="docutils literal notranslate"><span class="pre">choices</span></code>,
 <code class="docutils literal notranslate"><span class="pre">fields</span></code> accepts the ‘list of two-tuples’ syntax that retains order.
 <code class="docutils literal notranslate"><span class="pre">fields</span></code> may also just be an iterable of strings. In this case, the
-field names simply double as the exposed parameter names.</li>
-<li><code class="docutils literal notranslate"><span class="pre">field_labels</span></code> is an optional argument that allows you to customize
+field names simply double as the exposed parameter names.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">field_labels</span></code> is an optional argument that allows you to customize
 the display label for the corresponding parameter. It accepts a mapping
 of {field name: human readable label}. Keep in mind that the key is the
-field name, and not the exposed parameter name.</li>
+field name, and not the exposed parameter name.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UserFilter</span><span class="p">(</span><span class="n">FilterSet</span><span class="p">):</span>
     <span class="n">account</span> <span class="o">=</span> <span class="n">CharFilter</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s1">&#39;username&#39;</span><span class="p">)</span>
@@ -935,7 +973,7 @@ are not able to retain selection order.</p>
         <a href="fields.html" class="btn btn-neutral float-right" title="Field Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="filterset.html" class="btn btn-neutral" title="FilterSet Options" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="filterset.html" class="btn btn-neutral float-left" title="FilterSet Options" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -944,7 +982,7 @@ are not able to retain selection order.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013, Alex Gaynor and others..
+        &copy; Copyright 2019, Alex Gaynor, Carlton Gibson and others.
 
     </p>
   </div>
@@ -961,32 +999,16 @@ are not able to retain selection order.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'2.0.0',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

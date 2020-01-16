@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Widget Reference &mdash; django-filter 2.0.0 documentation</title>
+  <title>Widget Reference &mdash; django-filter 2.1.0 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Settings Reference" href="settings.html" />
-    <link rel="prev" title="Field Reference" href="fields.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    <link rel="prev" title="Group Reference" href="groups.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                2.0.0
+                2.1
               </div>
             
           
@@ -95,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="filterset.html">FilterSet Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filters.html">Filter Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fields.html">Field Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="groups.html">Group Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Widget Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#linkwidget"><code class="docutils literal notranslate"><span class="pre">LinkWidget</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#booleanwidget"><code class="docutils literal notranslate"><span class="pre">BooleanWidget</span></code></a></li>
@@ -183,11 +186,11 @@ one method that you can override for additional customizability.
 <code class="docutils literal notranslate"><span class="pre">option_string()</span></code> should return a string with 3 Python keyword argument
 placeholders:</p>
 <ol class="arabic simple">
-<li><code class="docutils literal notranslate"><span class="pre">attrs</span></code>: This is a string with all the attributes that will be on the
-final <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code> tag.</li>
-<li><code class="docutils literal notranslate"><span class="pre">query_string</span></code>: This is the query string for use in the <code class="docutils literal notranslate"><span class="pre">href</span></code>
-option on the <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code> element.</li>
-<li><code class="docutils literal notranslate"><span class="pre">label</span></code>: This is the text to be displayed to the user.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attrs</span></code>: This is a string with all the attributes that will be on the
+final <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code> tag.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">query_string</span></code>: This is the query string for use in the <code class="docutils literal notranslate"><span class="pre">href</span></code>
+option on the <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code> element.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code>: This is the text to be displayed to the user.</p></li>
 </ol>
 </div>
 <div class="section" id="booleanwidget">
@@ -209,7 +212,7 @@ well as type conversion.</p>
 <span id="range-widget"></span><h2><code class="docutils literal notranslate"><span class="pre">RangeWidget</span></code><a class="headerlink" href="#rangewidget" title="Permalink to this headline">¶</a></h2>
 <p>This widget is used with <code class="docutils literal notranslate"><span class="pre">RangeFilter</span></code> and its subclasses. It generates two
 form input elements which generally act as start/end values in a range.
-Under the hood, it is django’s <code class="docutils literal notranslate"><span class="pre">forms.TextInput</span></code> widget and excepts
+Under the hood, it is Django’s <code class="docutils literal notranslate"><span class="pre">forms.TextInput</span></code> widget and excepts
 the same arguments and values. To use it, pass it to <code class="docutils literal notranslate"><span class="pre">widget</span></code> argument of
 a <code class="docutils literal notranslate"><span class="pre">RangeField</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">date_range</span> <span class="o">=</span> <span class="n">DateFromToRangeFilter</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">RangeWidget</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;placeholder&#39;</span><span class="p">:</span> <span class="s1">&#39;YYYY/MM/DD&#39;</span><span class="p">}))</span>
@@ -247,7 +250,7 @@ bounds. By default, the resulting query params would look like the following:</p
         <a href="settings.html" class="btn btn-neutral float-right" title="Settings Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="fields.html" class="btn btn-neutral" title="Field Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="groups.html" class="btn btn-neutral float-left" title="Group Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -256,7 +259,7 @@ bounds. By default, the resulting query params would look like the following:</p
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013, Alex Gaynor and others..
+        &copy; Copyright 2019, Alex Gaynor, Carlton Gibson and others.
 
     </p>
   </div>
@@ -273,32 +276,16 @@ bounds. By default, the resulting query params would look like the following:</p
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'2.0.0',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

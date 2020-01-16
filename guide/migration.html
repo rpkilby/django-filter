@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Migration Guide &mdash; django-filter 2.0.0 documentation</title>
+  <title>Migration Guide &mdash; django-filter 2.1.0 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="FilterSet Options" href="../ref/filterset.html" />
     <link rel="prev" title="Tips and Solutions" href="tips.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                2.0.0
+                2.1
               </div>
             
           
@@ -99,6 +101,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#filter-name-renamed-to-filter-field-name-792"><code class="docutils literal notranslate"><span class="pre">Filter.name</span></code> renamed to <code class="docutils literal notranslate"><span class="pre">Filter.field_name</span></code> (#792)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#filter-widget-and-filter-required-removed-734"><code class="docutils literal notranslate"><span class="pre">Filter.widget</span></code> and <code class="docutils literal notranslate"><span class="pre">Filter.required</span></code> removed (#734)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#multiwidget-replaced-by-suffixedmultiwidget-770"><code class="docutils literal notranslate"><span class="pre">MultiWidget</span></code> replaced by <code class="docutils literal notranslate"><span class="pre">SuffixedMultiWidget</span></code> (#770)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filters-like-rangefilter-daterangefilter-datetimefromtorangefilter-770">Filters like <code class="docutils literal notranslate"><span class="pre">RangeFilter,</span> <span class="pre">DateRangeFilter,</span> <span class="pre">DateTimeFromToRangeFilter...</span></code> (#770)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#migrating-to-1-0">Migrating to 1.0</a><ul>
@@ -119,6 +122,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../ref/filterset.html">FilterSet Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/filters.html">Filter Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/fields.html">Field Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ref/groups.html">Group Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/widgets.html">Widget Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/settings.html">Settings Reference</a></li>
 </ul>
@@ -212,7 +216,7 @@ the following to raise the full exception instead:</p>
 <p>This release contains several changes that break forwards compatibility. This
 includes removed features, renamed attributes and arguments, and some reworked
 features. Due to the nature of these changes, it is not feasible to release
-a fully forards-compatible migration release. Please review the below list of
+a fully forwards-compatible migration release. Please review the below list of
 changes and update your code accordingly.</p>
 <div class="section" id="filter-lookup-expr-list-form-removed-851">
 <h3><code class="docutils literal notranslate"><span class="pre">Filter.lookup_expr</span></code> list form removed (<a class="reference external" href="https://github.com/carltongibson/django-filter/pull/851">#851</a>)<a class="headerlink" href="#filter-lookup-expr-list-form-removed-851" title="Permalink to this headline">¶</a></h3>
@@ -230,18 +234,18 @@ relationships now also obey <code class="docutils literal notranslate"><span cla
 <p>Several view-related attributes have been renamed to improve consistency with
 other parts of the library. The following classes are affected:</p>
 <ul class="simple">
-<li>DRF <code class="docutils literal notranslate"><span class="pre">ViewSet.filter_class</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">filterset_class</span></code></li>
-<li>DRF <code class="docutils literal notranslate"><span class="pre">ViewSet.filter_fields</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">filterset_fields</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">DjangoFilterBackend.default_filter_set</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">filterset_base</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">DjangoFilterBackend.get_filter_class()</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">get_filterset_class()</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">FilterMixin.filter_fields</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">filterset_fields</span></code></li>
+<li><p>DRF <code class="docutils literal notranslate"><span class="pre">ViewSet.filter_class</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">filterset_class</span></code></p></li>
+<li><p>DRF <code class="docutils literal notranslate"><span class="pre">ViewSet.filter_fields</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">filterset_fields</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DjangoFilterBackend.default_filter_set</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">filterset_base</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DjangoFilterBackend.get_filter_class()</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">get_filterset_class()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FilterMixin.filter_fields</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">filterset_fields</span></code></p></li>
 </ul>
 </div>
 <div class="section" id="filterset-meta-together-option-removed-791">
 <h3>FilterSet <code class="docutils literal notranslate"><span class="pre">Meta.together</span></code> option removed (<a class="reference external" href="https://github.com/carltongibson/django-filter/pull/791">#791</a>)<a class="headerlink" href="#filterset-meta-together-option-removed-791" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">Meta.together</span></code> has been deprecated in favor of userland implementations
 that override the <code class="docutils literal notranslate"><span class="pre">clean</span></code> method of the <code class="docutils literal notranslate"><span class="pre">Meta.form</span></code> class. An example will
-be provided in a “recipes” secion in future docs.</p>
+be provided in a “recipes” section in future docs.</p>
 </div>
 <div class="section" id="filterset-strictness-handling-moved-to-view-788">
 <h3>FilterSet “strictness” handling moved to view (<a class="reference external" href="https://github.com/carltongibson/django-filter/pull/788">#788</a>)<a class="headerlink" href="#filterset-strictness-handling-moved-to-view-788" title="Permalink to this headline">¶</a></h3>
@@ -269,6 +273,16 @@ All arguments are located in the filter’s <code class="docutils literal notran
 <code class="docutils literal notranslate"><span class="pre">SuffixedMultiWidget</span></code>, changing the suffixes of their query param names. For
 example, <code class="docutils literal notranslate"><span class="pre">RangeWidget</span></code> now has <code class="docutils literal notranslate"><span class="pre">_min</span></code> and <code class="docutils literal notranslate"><span class="pre">_max</span></code> suffixes instead of
 <code class="docutils literal notranslate"><span class="pre">_0</span></code> and <code class="docutils literal notranslate"><span class="pre">_1</span></code>.</p>
+</div>
+<div class="section" id="filters-like-rangefilter-daterangefilter-datetimefromtorangefilter-770">
+<h3>Filters like <code class="docutils literal notranslate"><span class="pre">RangeFilter,</span> <span class="pre">DateRangeFilter,</span> <span class="pre">DateTimeFromToRangeFilter...</span></code> (<a class="reference external" href="https://github.com/carltongibson/django-filter/pull/770">#770</a>)<a class="headerlink" href="#filters-like-rangefilter-daterangefilter-datetimefromtorangefilter-770" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>As they depend on <code class="docutils literal notranslate"><span class="pre">MultiWidget</span></code>, they need to be adjusted. In 1.0 release</dt><dd><p>parameters were provided using <code class="docutils literal notranslate"><span class="pre">_0</span></code> and <code class="docutils literal notranslate"><span class="pre">_1</span></code> as suffix``. For example,
+a parameter <code class="docutils literal notranslate"><span class="pre">creation_date</span></code> using``DateRangeFilter`` will expect
+<code class="docutils literal notranslate"><span class="pre">creation_date_after</span></code> and <code class="docutils literal notranslate"><span class="pre">creation_date_before</span></code> instead of
+<code class="docutils literal notranslate"><span class="pre">creation_date_0</span></code> and <code class="docutils literal notranslate"><span class="pre">creation_date_1</span></code>.</p>
+</dd>
+</dl>
 </div>
 </div>
 <div class="section" id="migrating-to-1-0">
@@ -352,9 +366,9 @@ the <code class="docutils literal notranslate"><span class="pre">Meta.exclude</s
 <p>Several <code class="docutils literal notranslate"><span class="pre">FilterSet</span></code> options have been moved to the <code class="docutils literal notranslate"><span class="pre">Meta</span></code> class to prevent
 potential conflicts with declared filter names. This includes:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">filter_overrides</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">strict</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">order_by_field</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filter_overrides</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">strict</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">order_by_field</span></code></p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 0.x</span>
 <span class="k">class</span> <span class="nc">UserFilter</span><span class="p">(</span><span class="n">FilterSet</span><span class="p">):</span>
@@ -379,16 +393,15 @@ potential conflicts with declared filter names. This includes:</p>
 <p>The FilterSet ordering options and methods have been deprecated and replaced
 by <a class="reference internal" href="../ref/filters.html#ordering-filter"><span class="std std-ref">OrderingFilter</span></a>. Deprecated options include:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">Meta.order_by</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">Meta.order_by_field</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Meta.order_by</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Meta.order_by_field</span></code></p></li>
 </ul>
 <p>These options retain backwards compatibility with the following caveats:</p>
 <ul>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">order_by</span></code> asserts that <code class="docutils literal notranslate"><span class="pre">Meta.fields</span></code> is not using the dict syntax. This
+<li><p><code class="docutils literal notranslate"><span class="pre">order_by</span></code> asserts that <code class="docutils literal notranslate"><span class="pre">Meta.fields</span></code> is not using the dict syntax. This
 previously was undefined behavior, however the migration code is unable to
-support it.</p>
-</li>
-<li><p class="first">Prior, if no ordering was specified in the request, the FilterSet implicitly
+support it.</p></li>
+<li><p>Prior, if no ordering was specified in the request, the FilterSet implicitly
 filtered by the first param in the <code class="docutils literal notranslate"><span class="pre">order_by</span></code> option. This behavior cannot
 be easily emulated but can be fixed by ensuring that the passed in queryset
 explicitly calls <code class="docutils literal notranslate"><span class="pre">.order_by()</span></code>.</p>
@@ -400,8 +413,8 @@ explicitly calls <code class="docutils literal notranslate"><span class="pre">.o
 <p>The following methods are deprecated and will raise an assertion if present
 on the FilterSet:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">.get_order_by()</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">.get_ordering_field()</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.get_order_by()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.get_ordering_field()</span></code></p></li>
 </ul>
 <p>To fix this, simply remove the methods from your class. You can subclass
 <code class="docutils literal notranslate"><span class="pre">OrderingFilter</span></code> to migrate any custom logic.</p>
@@ -432,7 +445,7 @@ Alternatively, you could provide your own templates.</p>
         <a href="../ref/filterset.html" class="btn btn-neutral float-right" title="FilterSet Options" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="tips.html" class="btn btn-neutral" title="Tips and Solutions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tips.html" class="btn btn-neutral float-left" title="Tips and Solutions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -441,7 +454,7 @@ Alternatively, you could provide your own templates.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013, Alex Gaynor and others..
+        &copy; Copyright 2019, Alex Gaynor, Carlton Gibson and others.
 
     </p>
   </div>
@@ -458,32 +471,16 @@ Alternatively, you could provide your own templates.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'2.0.0',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

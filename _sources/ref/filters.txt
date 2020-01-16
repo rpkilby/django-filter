@@ -13,7 +13,7 @@ The following are the core arguments that apply to all filters. Note that they
 are joined to construct the complete `lookup expression`_ that is the left hand
 side of the ORM ``.filter()`` call.
 
-.. _`lookup expression`: https://docs.djangoproject.com/en/dev/ref/models/lookups/#module-django.db.models.lookups
+.. _`lookup expression`: https://docs.djangoproject.com/en/stable/ref/models/lookups/#module-django.db.models.lookups
 
 ``field_name``
 ~~~~~~~~~~~~~~
@@ -31,7 +31,7 @@ The `field lookup`_ that should be performed in the filter call. Defaults to
 are joined by the ORM lookup separator (``__``). e.g., filter a datetime by its
 year part ``year__gt``.
 
-.. _`Field lookup`: https://docs.djangoproject.com/en/dev/ref/models/querysets/#field-lookups
+.. _`Field lookup`: https://docs.djangoproject.com/en/stable/ref/models/querysets/#field-lookups
 
 .. _keyword-only-arguments:
 
@@ -44,7 +44,7 @@ all filters.
 ``label``
 ~~~~~~~~~
 
-The label as it will apear in the HTML, analogous to a form field's label
+The label as it will appear in the HTML, analogous to a form field's label
 argument. If a label is not provided, a verbose label will be generated based
 on the field ``field_name`` and the parts of the ``lookup_expr``
 (see: :ref:`verbose-lookups-setting`).
@@ -433,7 +433,7 @@ widget used is the ``RangeField``.
 Regular field lookups are available in addition to several containment lookups, including
 ``overlap``, ``contains``, and ``contained_by``. More details in the Django `docs`__.
 
-__ https://docs.djangoproject.com/en/1.8/ref/contrib/postgres/fields/#querying-range-fields
+__ https://docs.djangoproject.com/en/stable/ref/contrib/postgres/fields/#querying-range-fields
 
 If the lower limit value is provided, the filter automatically defaults to ``startswith``
 as the lookup and ``endswith`` if only the upper limit value is provided.
@@ -496,13 +496,13 @@ Example of using the ``DateField`` field::
     # Max-Only: Comments added before 2016-02-01
     f = F({'date_before': '2016-02-01'})
 
-    .. note::
-        When filtering ranges that occurs on DST transition dates ``DateFromToRangeFilter`` will use the first valid hour of the day for start datetime and the last valid hour of the day for end datetime.
-        This is OK for most applications, but if you want to customize this behavior you must extend ``DateFromToRangeFilter`` and make a custom field for it.
+.. note::
+    When filtering ranges that occurs on DST transition dates ``DateFromToRangeFilter`` will use the first valid hour of the day for start datetime and the last valid hour of the day for end datetime.
+    This is OK for most applications, but if you want to customize this behavior you must extend ``DateFromToRangeFilter`` and make a custom field for it.
 
-    .. warning::
-        If you're using Django prior to 1.9 you may hit ``AmbiguousTimeError`` or ``NonExistentTimeError`` when start/end date matches DST start/end respectively.
-        This occurs because versions before 1.9 don't allow to change the DST behavior for making a datetime aware.
+.. warning::
+    If you're using Django prior to 1.9 you may hit ``AmbiguousTimeError`` or ``NonExistentTimeError`` when start/end date matches DST start/end respectively.
+    This occurs because versions before 1.9 don't allow to change the DST behavior for making a datetime aware.
 
 Example of using the ``DateTimeField`` field::
 
@@ -565,6 +565,39 @@ Example::
     f = F({'published_before': '2016-01-01 10:00'})
     assert len(f.qs) == 2
 
+``IsoDateTimeFromToRangeFilter``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Similar to a ``RangeFilter`` except it uses ISO 8601 formatted values instead of numerical values. It can be used with ``IsoDateTimeField``.
+
+Example::
+
+    class Article(models.Model):
+        published = dajngo_filters.IsoDateTimeField()
+
+    class F(FilterSet):
+        published = IsoDateTimeFromToRangeFilter()
+
+        class Meta:
+            model = Article
+            fields = ['published']
+
+    Article.objects.create(published='2016-01-01T8:00:00+01:00')
+    Article.objects.create(published='2016-01-01T9:30:00+01:00')
+    Article.objects.create(published='2016-01-02T8:00:00+01:00')
+
+    # Range: Articles published 2016-01-01 between 8:00 and 10:00
+    f = F({'published_after': '2016-01-01T8:00:00+01:00', 'published_before': '2016-01-01T10:00:00+01:00'})
+    assert len(f.qs) == 2
+
+    # Min-Only: Articles published after 2016-01-01 8:00
+    f = F({'published_after': '2016-01-01T8:00:00+01:00'})
+    assert len(f.qs) == 3
+
+    # Max-Only: Articles published before 2016-01-01 10:00
+    f = F({'published_before': '2016-01-01T10:00:00+0100'})
+    assert len(f.qs) == 2
+
 ``TimeRangeFilter``
 ~~~~~~~~~~~~~~~~~~~
 
@@ -616,7 +649,7 @@ of the admin.
 A combined filter that allows users to select the lookup expression from a dropdown.
 
 * ``lookup_choices`` is an optional argument that accepts multiple input
-  formats, and is ultimately normlized as the choices used in the lookup
+  formats, and is ultimately normalized as the choices used in the lookup
   dropdown. See ``.get_lookup_choices()`` for more information.
 
 * ``field_class`` is an optional argument that allows you to set the inner

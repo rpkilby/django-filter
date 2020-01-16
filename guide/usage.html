@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Started &mdash; django-filter 2.0.0 documentation</title>
+  <title>Getting Started &mdash; django-filter 2.1.0 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Integration with DRF" href="rest_framework.html" />
     <link rel="prev" title="Installation" href="install.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                2.0.0
+                2.1
               </div>
             
           
@@ -89,10 +91,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#the-model">The model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-filter">The filter</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#declaring-filters">Declaring filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#generating-filters-with-meta-fields">Generating filters with Meta.fields</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generating-filters-with-meta-fields">Generating filters with <code class="docutils literal notranslate"><span class="pre">Meta.fields</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#overriding-default-filters">Overriding default filters</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#process-filters-together-with-meta-groups">Process filters together with <code class="docutils literal notranslate"><span class="pre">Meta.groups</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#request-based-filtering">Request-based filtering</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#filtering-the-primary-qs">Filtering the primary <code class="docutils literal notranslate"><span class="pre">.qs</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#filtering-the-related-queryset-for-modelchoicefilter">Filtering the related queryset for <code class="docutils literal notranslate"><span class="pre">ModelChoiceFilter</span></code></a></li>
@@ -116,6 +119,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../ref/filterset.html">FilterSet Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/filters.html">Filter Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/fields.html">Field Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ref/groups.html">Group Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/widgets.html">Widget Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/settings.html">Settings Reference</a></li>
 </ul>
@@ -192,8 +196,8 @@
 parameters a user provides.  Say we have a <code class="docutils literal notranslate"><span class="pre">Product</span></code> model and we want to let
 our users filter which products they see on a list page.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you’re using django-filter with Django Rest Framework, it’s
+<p class="admonition-title">Note</p>
+<p>If you’re using django-filter with Django Rest Framework, it’s
 recommended that you read the integration docs after this guide.</p>
 </div>
 <div class="section" id="the-model">
@@ -249,20 +253,20 @@ the <a class="reference internal" href="../ref/filters.html#core-arguments"><spa
 </div>
 <p>There are two main arguments for filters:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">field_name</span></code>: The name of the model field to filter on. You can traverse
+<li><p><code class="docutils literal notranslate"><span class="pre">field_name</span></code>: The name of the model field to filter on. You can traverse
 “relationship paths” using Django’s <code class="docutils literal notranslate"><span class="pre">__</span></code> syntax to filter fields on a
-related model. ex, <code class="docutils literal notranslate"><span class="pre">manufacturer__name</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">lookup_expr</span></code>: The <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/models/querysets/#field-lookups">field lookup</a> to use when filtering. Django’s <code class="docutils literal notranslate"><span class="pre">__</span></code>
+related model. ex, <code class="docutils literal notranslate"><span class="pre">manufacturer__name</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lookup_expr</span></code>: The <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/querysets/#field-lookups">field lookup</a> to use when filtering. Django’s <code class="docutils literal notranslate"><span class="pre">__</span></code>
 syntax can again be used in order to support lookup transforms.
-ex, <code class="docutils literal notranslate"><span class="pre">year__gte</span></code>.</li>
+ex, <code class="docutils literal notranslate"><span class="pre">year__gte</span></code>.</p></li>
 </ul>
 <p>Together, the field <code class="docutils literal notranslate"><span class="pre">field_name</span></code> and <code class="docutils literal notranslate"><span class="pre">lookup_expr</span></code> represent a complete Django
 lookup expression. A detailed explanation of lookup expressions is provided in
-Django’s <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/models/lookups/#module-django.db.models.lookups">lookup reference</a>. django-filter supports expressions containing
+Django’s <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/lookups/#module-django.db.models.lookups">lookup reference</a>. django-filter supports expressions containing
 both transforms and a final lookup.</p>
 </div>
 <div class="section" id="generating-filters-with-meta-fields">
-<h3>Generating filters with Meta.fields<a class="headerlink" href="#generating-filters-with-meta-fields" title="Permalink to this headline">¶</a></h3>
+<h3>Generating filters with <code class="docutils literal notranslate"><span class="pre">Meta.fields</span></code><a class="headerlink" href="#generating-filters-with-meta-fields" title="Permalink to this headline">¶</a></h3>
 <p>The FilterSet Meta class provides a <code class="docutils literal notranslate"><span class="pre">fields</span></code> attribute that can be used for
 easily specifying multiple filters without significant code duplication. The
 base syntax supports a list of multiple field names:</p>
@@ -292,8 +296,8 @@ for each field:</p>
 <p>The above would generate ‘price__lt’, ‘price__gt’, ‘release_date’, and
 ‘release_date__year__gt’ filters.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The filter lookup type ‘exact’ is an implicit default and therefore never
+<p class="admonition-title">Note</p>
+<p>The filter lookup type ‘exact’ is an implicit default and therefore never
 added to a filter name. In the above example, the release date’s exact
 filter is ‘release_date’, not ‘release_date__exact’.</p>
 </div>
@@ -337,6 +341,23 @@ default filters for all the models fields of the same kind using
 </div>
 </div>
 </div>
+<div class="section" id="process-filters-together-with-meta-groups">
+<h3>Process filters together with <code class="docutils literal notranslate"><span class="pre">Meta.groups</span></code><a class="headerlink" href="#process-filters-together-with-meta-groups" title="Permalink to this headline">¶</a></h3>
+<p>Filters can be added to a group, allowing them to be processed together. This
+overrides their validation and filtering behavior. In the example below,
+<code class="docutils literal notranslate"><span class="pre">first_name</span></code> and <code class="docutils literal notranslate"><span class="pre">last_name</span></code> are mutually required. Filtering by one
+of the params requires that both are provided. For more information, see
+the <a class="reference internal" href="../ref/groups.html"><span class="doc">group reference</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UserFilter</span><span class="p">(</span><span class="n">django_filters</span><span class="o">.</span><span class="n">FilterSet</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">]</span>
+        <span class="n">groups</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">RequiredGroup</span><span class="p">([</span><span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">]),</span>
+        <span class="p">]</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="request-based-filtering">
 <h3>Request-based filtering<a class="headerlink" href="#request-based-filtering" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">FilterSet</span></code> may be initialized with an optional <code class="docutils literal notranslate"><span class="pre">request</span></code> argument. If
@@ -344,9 +365,9 @@ a request object is passed, then you may access the request during filtering.
 This allows you to filter by properties on the request, such as the currently
 logged-in user or the <code class="docutils literal notranslate"><span class="pre">Accepts-Languages</span></code> header.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">It is not guaranteed that a <cite>request</cite> will be provied to the <cite>FilterSet</cite>
-instance. Any code depending on a request should handle the <cite>None</cite> case.</p>
+<p class="admonition-title">Note</p>
+<p>It is not guaranteed that a <code class="docutils literal notranslate"><span class="pre">request</span></code> will be provied to the <code class="docutils literal notranslate"><span class="pre">FilterSet</span></code>
+instance. Any code depending on a request should handle the <code class="docutils literal notranslate"><span class="pre">None</span></code> case.</p>
 </div>
 <div class="section" id="filtering-the-primary-qs">
 <h4>Filtering the primary <code class="docutils literal notranslate"><span class="pre">.qs</span></code><a class="headerlink" href="#filtering-the-primary-qs" title="Permalink to this headline">¶</a></h4>
@@ -501,7 +522,7 @@ class-based view above.</p>
         <a href="rest_framework.html" class="btn btn-neutral float-right" title="Integration with DRF" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="install.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -510,7 +531,7 @@ class-based view above.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013, Alex Gaynor and others..
+        &copy; Copyright 2019, Alex Gaynor, Carlton Gibson and others.
 
     </p>
   </div>
@@ -527,32 +548,16 @@ class-based view above.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'2.0.0',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

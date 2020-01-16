@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tips and Solutions &mdash; django-filter 2.0.0 documentation</title>
+  <title>Tips and Solutions &mdash; django-filter 2.1.0 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Migration Guide" href="migration.html" />
     <link rel="prev" title="Integration with DRF" href="rest_framework.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                2.0.0
+                2.1
               </div>
             
           
@@ -118,6 +120,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../ref/filterset.html">FilterSet Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/filters.html">Filter Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/fields.html">Field Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ref/groups.html">Group Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/widgets.html">Widget Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/settings.html">Settings Reference</a></li>
 </ul>
@@ -276,8 +279,8 @@ the FilterSet’s automatic filter generation. To do this manually, simply add:<
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Remember that the filter class is validating the input value. The underlying
+<p class="admonition-title">Note</p>
+<p>Remember that the filter class is validating the input value. The underlying
 type of the mode field is not relevant here.</p>
 </div>
 <p>You may also reverse the logic with the <code class="docutils literal notranslate"><span class="pre">exclude</span></code> parameter.</p>
@@ -312,13 +315,15 @@ in a <code class="docutils literal notranslate"><span class="pre">BooleanField</
 <p>It’s not currently possible to filter by an empty string, since empty values are
 interpreted as a skipped filter.</p>
 <blockquote>
-<div>GET <a class="reference external" href="http://localhost/api/my-model?myfield=">http://localhost/api/my-model?myfield=</a></div></blockquote>
+<div><p>GET <a class="reference external" href="http://localhost/api/my-model?myfield=">http://localhost/api/my-model?myfield=</a></p>
+</div></blockquote>
 <div class="section" id="solution-1-magic-values">
 <h4>Solution 1: Magic values<a class="headerlink" href="#solution-1-magic-values" title="Permalink to this headline">¶</a></h4>
 <p>You can override the <code class="docutils literal notranslate"><span class="pre">filter()</span></code> method of a filter class to specifically check
 for magic values. This is similar to the <code class="docutils literal notranslate"><span class="pre">ChoiceFilter</span></code>’s null value handling.</p>
 <blockquote>
-<div>GET <a class="reference external" href="http://localhost/api/my-model?myfield=EMPTY">http://localhost/api/my-model?myfield=EMPTY</a></div></blockquote>
+<div><p>GET <a class="reference external" href="http://localhost/api/my-model?myfield=EMPTY">http://localhost/api/my-model?myfield=EMPTY</a></p>
+</div></blockquote>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyCharFilter</span><span class="p">(</span><span class="n">filters</span><span class="o">.</span><span class="n">CharFilter</span><span class="p">):</span>
     <span class="n">empty_value</span> <span class="o">=</span> <span class="s1">&#39;EMPTY&#39;</span>
 
@@ -336,7 +341,8 @@ for magic values. This is similar to the <code class="docutils literal notransla
 <p>It would also be possible to create an empty value filter that exhibits the same
 behavior as an <code class="docutils literal notranslate"><span class="pre">isnull</span></code> filter.</p>
 <blockquote>
-<div>GET <a class="reference external" href="http://localhost/api/my-model?myfield__isempty=false">http://localhost/api/my-model?myfield__isempty=false</a></div></blockquote>
+<div><p>GET <a class="reference external" href="http://localhost/api/my-model?myfield__isempty=false">http://localhost/api/my-model?myfield__isempty=false</a></p>
+</div></blockquote>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.core.validators</span> <span class="kn">import</span> <span class="n">EMPTY_VALUES</span>
 
 <span class="k">class</span> <span class="nc">EmptyStringFilter</span><span class="p">(</span><span class="n">filters</span><span class="o">.</span><span class="n">BooleanFilter</span><span class="p">):</span>
@@ -366,13 +372,13 @@ behavior as an <code class="docutils literal notranslate"><span class="pre">isnu
 default when no value was submitted. This behavior was not officially supported and has
 since been removed.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<p class="admonition-title">Warning</p>
 <p>It is recommended that you do <strong>NOT</strong> implement the below as it adversely
 affects usability. Django forms don’t provide this behavior for a reason.</p>
-<ul class="last simple">
-<li>Using initial values as defaults is inconsistent with the behavior of Django forms.</li>
-<li>Default values prevent users from filtering by empty values.</li>
-<li>Default values prevent users from skipping that filter.</li>
+<ul class="simple">
+<li><p>Using initial values as defaults is inconsistent with the behavior of Django forms.</p></li>
+<li><p>Default values prevent users from filtering by empty values.</p></li>
+<li><p>Default values prevent users from skipping that filter.</p></li>
 </ul>
 </div>
 <p>If defaults are necessary though, the following should mimic the pre-1.0 behavior:</p>
@@ -408,7 +414,7 @@ affects usability. Django forms don’t provide this behavior for a reason.</p>
         <a href="migration.html" class="btn btn-neutral float-right" title="Migration Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="rest_framework.html" class="btn btn-neutral" title="Integration with DRF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="rest_framework.html" class="btn btn-neutral float-left" title="Integration with DRF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -417,7 +423,7 @@ affects usability. Django forms don’t provide this behavior for a reason.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013, Alex Gaynor and others..
+        &copy; Copyright 2019, Alex Gaynor, Carlton Gibson and others.
 
     </p>
   </div>
@@ -434,32 +440,16 @@ affects usability. Django forms don’t provide this behavior for a reason.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'2.0.0',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

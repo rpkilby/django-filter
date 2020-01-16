@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Running the Test Suite &mdash; django-filter 2.0.0 documentation</title>
+  <title>Running the Test Suite &mdash; django-filter 2.1.0 documentation</title>
   
 
   
@@ -17,33 +17,35 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Settings Reference" href="../ref/settings.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -57,7 +59,7 @@
             
             
               <div class="version">
-                2.0.0
+                2.1
               </div>
             
           
@@ -94,6 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../ref/filterset.html">FilterSet Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/filters.html">Filter Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/fields.html">Field Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ref/groups.html">Group Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/widgets.html">Widget Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ref/settings.html">Settings Reference</a></li>
 </ul>
@@ -178,8 +181,8 @@ code and create a virtualenv where you can install the test dependencies.
 Django-filter uses a custom test runner to configure the environment, so a
 wrapper script is available to set up and run the test suite.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The following assumes you have <a class="reference external" href="https://virtualenv.pypa.io/en/stable/">virtualenv</a> and <a class="reference external" href="https://git-scm.com">git</a> installed.</p>
+<p class="admonition-title">Note</p>
+<p>The following assumes you have <a class="reference external" href="https://virtualenv.pypa.io/en/stable/">virtualenv</a> and <a class="reference external" href="https://git-scm.com">git</a> installed.</p>
 </div>
 <div class="section" id="clone-the-repository">
 <h2>Clone the repository<a class="headerlink" href="#clone-the-repository" title="Permalink to this headline">¶</a></h2>
@@ -249,7 +252,7 @@ $ isort --check-only --recursive django_filters tests
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="../ref/settings.html" class="btn btn-neutral" title="Settings Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../ref/settings.html" class="btn btn-neutral float-left" title="Settings Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -258,7 +261,7 @@ $ isort --check-only --recursive django_filters tests
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013, Alex Gaynor and others..
+        &copy; Copyright 2019, Alex Gaynor, Carlton Gibson and others.
 
     </p>
   </div>
@@ -275,32 +278,16 @@ $ isort --check-only --recursive django_filters tests
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'2.0.0',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

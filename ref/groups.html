@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Group Reference &mdash; django-filter 2.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Widget Reference" href="widgets.html" />
+    <link rel="prev" title="Field Reference" href="fields.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> django-filter
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guide/install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/usage.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/rest_framework.html">Integration with DRF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/tips.html">Tips and Solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/migration.html">Migration Guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="filterset.html">FilterSet Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Filter Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fields.html">Field Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Group Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filtering">Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-django_filters.groups">Builtin Groups:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basefiltergroup">BaseFilterGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exclusivegroup">ExclusiveGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#requiredgroup">RequiredGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combinedgroup">CombinedGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combinedrequiredgroup">CombinedRequiredGroup</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="widgets.html">Widget Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev/tests.html">Running the Test Suite</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">django-filter</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Group Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/ref/groups.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="group-reference">
+<h1>Group Reference<a class="headerlink" href="#group-reference" title="Permalink to this headline">¶</a></h1>
+<p>By default, a <code class="docutils literal notranslate"><span class="pre">FilterSet</span></code> validates and then filters its query parameters
+independently of each other, ultimately resulting in a sequence of chained
+<code class="docutils literal notranslate"><span class="pre">.filter()</span></code> calls. Due to the nature of filter chaining, it’s not trivial
+to, for example, make a group of filters mutually exclusive, or to OR them
+together into a single filter call.</p>
+<p>Filter groups solve this limitation by processing subsets of parameters
+together, enabling higher level validation and filtering behavior.</p>
+<div class="section" id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
+<p>A filter group only applies group-level validation. For example, a mutually
+exclusive group is only responsible for validating that one of its parameters
+is present. It is not responsible for individual value validation, which is
+still performed by the underlying filter instances.</p>
+</div>
+<div class="section" id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
+<p>In contrast to validation, a filter group overrides its filtering behavior.
+Internally, a group may use the <code class="docutils literal notranslate"><span class="pre">.filter()</span></code> methods of its filters, but it
+might also override it completely. For example, the <code class="docutils literal notranslate"><span class="pre">RequiredGroup</span></code> delegates
+filtering to each of its underlying filters, while <code class="docutils literal notranslate"><span class="pre">CombinedRequiredGroup</span></code>
+constructs a <code class="docutils literal notranslate"><span class="pre">Q</span></code> object.</p>
+</div>
+<div class="section" id="module-django_filters.groups">
+<span id="builtin-groups"></span><h2>Builtin Groups:<a class="headerlink" href="#module-django_filters.groups" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#django_filters.groups.BaseFilterGroup" title="django_filters.groups.BaseFilterGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseFilterGroup</span></code></a>(filters)</p></td>
+<td><p>Base class for validating &amp; filtering query parameters as a group.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#django_filters.groups.ExclusiveGroup" title="django_filters.groups.ExclusiveGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExclusiveGroup</span></code></a>(filters)</p></td>
+<td><p>A group of mutually exclusive filters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#django_filters.groups.RequiredGroup" title="django_filters.groups.RequiredGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RequiredGroup</span></code></a>(filters)</p></td>
+<td><p>A group of mutually required filters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#django_filters.groups.CombinedGroup" title="django_filters.groups.CombinedGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CombinedGroup</span></code></a>(filters[, combine])</p></td>
+<td><p>A group of filters that result in a combined query (a <code class="docutils literal notranslate"><span class="pre">Q</span></code> object).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#django_filters.groups.CombinedRequiredGroup" title="django_filters.groups.CombinedRequiredGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CombinedRequiredGroup</span></code></a>(filters[, combine])</p></td>
+<td><p>A group of mutually required filters that result in a combined query.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="basefiltergroup">
+<h3>BaseFilterGroup<a class="headerlink" href="#basefiltergroup" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="django_filters.groups.BaseFilterGroup">
+<em class="property">class </em><code class="sig-prename descclassname">django_filters.groups.</code><code class="sig-name descname">BaseFilterGroup</code><span class="sig-paren">(</span><em class="sig-param">filters</em><span class="sig-paren">)</span><a class="headerlink" href="#django_filters.groups.BaseFilterGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for validating &amp; filtering query parameters as a group.</p>
+<dl class="method">
+<dt id="django_filters.groups.BaseFilterGroup.validate">
+<code class="sig-name descname">validate</code><span class="sig-paren">(</span><em class="sig-param">form</em>, <em class="sig-param">**data</em><span class="sig-paren">)</span><a class="headerlink" href="#django_filters.groups.BaseFilterGroup.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate the subset of cleaned data provided by the form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>form</strong> – The underlying <code class="docutils literal notranslate"><span class="pre">Form</span></code> instance used to validate the query
+params. A <code class="docutils literal notranslate"><span class="pre">FilterGroup</span></code> should add errors to this form using
+<code class="docutils literal notranslate"><span class="pre">form.add_error(&lt;field</span> <span class="pre">name&gt;,</span> <span class="pre">&lt;error</span> <span class="pre">message&gt;)</span></code>.</p></li>
+<li><p><strong>**data</strong> – The subset of a form’s <code class="docutils literal notranslate"><span class="pre">cleaned_data</span></code> for the filters in
+the group.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="django_filters.groups.BaseFilterGroup.filter">
+<code class="sig-name descname">filter</code><span class="sig-paren">(</span><em class="sig-param">qs</em>, <em class="sig-param">**data</em><span class="sig-paren">)</span><a class="headerlink" href="#django_filters.groups.BaseFilterGroup.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter the result queryset with the subset of cleaned data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qs</strong> – The <code class="docutils literal notranslate"><span class="pre">QuerySet</span></code> instance to filter.</p></li>
+<li><p><strong>**data</strong> – The subset of a form’s <code class="docutils literal notranslate"><span class="pre">cleaned_data</span></code> for the filters in
+the group.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="django_filters.groups.BaseFilterGroup.format_labels">
+<code class="sig-name descname">format_labels</code><span class="sig-paren">(</span><em class="sig-param">filters</em><span class="sig-paren">)</span><a class="headerlink" href="#django_filters.groups.BaseFilterGroup.format_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a formatted string of labels for the given filter names.</p>
+<p>This inspects the filter labels from the <code class="docutils literal notranslate"><span class="pre">self.parent</span></code> FilterSet,
+and combines them into a formatted string. This string can then be
+used in validation error messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filters</strong> – A list of filter names.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>The formatted string of labels. For example, if filters ‘a’, ‘b’,
+and ‘c’ have corresponding labels ‘Filter A’, ‘Filter B’, and
+‘Filter C’, then…</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">format_labels</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
+<span class="go">&quot;&#39;Filter A&#39; and &#39;Filter B&#39;&quot;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">format_labels</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+<span class="go">&quot;&#39;Filter A&#39;, &#39;Filter B&#39;, and &#39;Filter C&#39;&quot;</span>
+</pre></div>
+</div>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="exclusivegroup">
+<h3>ExclusiveGroup<a class="headerlink" href="#exclusivegroup" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="django_filters.groups.ExclusiveGroup">
+<em class="property">class </em><code class="sig-prename descclassname">django_filters.groups.</code><code class="sig-name descname">ExclusiveGroup</code><span class="sig-paren">(</span><em class="sig-param">filters</em><span class="sig-paren">)</span><a class="headerlink" href="#django_filters.groups.ExclusiveGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>A group of mutually exclusive filters.</p>
+<p>If any filter in the group is included in the request data, then all other
+filters in the group <strong>must not</strong> be present in the request data.</p>
+<dl class="attribute">
+<dt id="django_filters.groups.ExclusiveGroup.filters">
+<code class="sig-name descname">filters</code><a class="headerlink" href="#django_filters.groups.ExclusiveGroup.filters" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set of filter names to operate on.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="requiredgroup">
+<h3>RequiredGroup<a class="headerlink" href="#requiredgroup" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="django_filters.groups.RequiredGroup">
+<em class="property">class </em><code class="sig-prename descclassname">django_filters.groups.</code><code class="sig-name descname">RequiredGroup</code><span class="sig-paren">(</span><em class="sig-param">filters</em><span class="sig-paren">)</span><a class="headerlink" href="#django_filters.groups.RequiredGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>A group of mutually required filters.</p>
+<p>If any filter in the group is included in the request data, then all other
+filters in the group <strong>must</strong> be present in the request data. Filtering is
+still performed by the individual filters and is not combined via <code class="docutils literal notranslate"><span class="pre">Q</span></code>
+objects. To use <code class="docutils literal notranslate"><span class="pre">Q</span></code> objects instead (e.g., for OR-based filtering), use
+the <code class="docutils literal notranslate"><span class="pre">CombinedRequiredGroup</span></code>.</p>
+<dl class="attribute">
+<dt id="django_filters.groups.RequiredGroup.filters">
+<code class="sig-name descname">filters</code><a class="headerlink" href="#django_filters.groups.RequiredGroup.filters" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set of filter names to operate on.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="combinedgroup">
+<h3>CombinedGroup<a class="headerlink" href="#combinedgroup" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="django_filters.groups.CombinedGroup">
+<em class="property">class </em><code class="sig-prename descclassname">django_filters.groups.</code><code class="sig-name descname">CombinedGroup</code><span class="sig-paren">(</span><em class="sig-param">filters</em>, <em class="sig-param">combine=&lt;built-in function and_&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#django_filters.groups.CombinedGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>A group of filters that result in a combined query (a <code class="docutils literal notranslate"><span class="pre">Q</span></code> object).</p>
+<p>This implementation combines <code class="docutils literal notranslate"><span class="pre">Q</span></code> objects <em>instead</em> of chaining
+<code class="docutils literal notranslate"><span class="pre">.filter()</span></code> calls. The <code class="docutils literal notranslate"><span class="pre">Q</span></code> objects are generated from the filter’s
+<code class="docutils literal notranslate"><span class="pre">field_name</span></code>, <code class="docutils literal notranslate"><span class="pre">lookup_expr</span></code>, and <code class="docutils literal notranslate"><span class="pre">exclude</span></code> attributes, and the
+resulting queryset will call <code class="docutils literal notranslate"><span class="pre">.distinct()</span></code> if set on any of the filters.</p>
+<p>In short, instead of generating the following filter call:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qs</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This group would generate a call like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qs</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">Q</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This is useful for enabling OR filtering, as well as combining filters that
+span multi-valued relationships (<a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/db/queries/#spanning-multi-valued-relationships">more info</a>).</p>
+<dl class="attribute">
+<dt id="django_filters.groups.CombinedGroup.filters">
+<code class="sig-name descname">filters</code><a class="headerlink" href="#django_filters.groups.CombinedGroup.filters" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set of filter names to operate on.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django_filters.groups.CombinedGroup.combine">
+<code class="sig-name descname">combine</code><a class="headerlink" href="#django_filters.groups.CombinedGroup.combine" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that combines two <code class="docutils literal notranslate"><span class="pre">Q</span></code> objects. Defaults to
+<code class="docutils literal notranslate"><span class="pre">operator.and_</span></code>. For OR operations, use <code class="docutils literal notranslate"><span class="pre">operator.or_</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="combinedrequiredgroup">
+<h3>CombinedRequiredGroup<a class="headerlink" href="#combinedrequiredgroup" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="django_filters.groups.CombinedRequiredGroup">
+<em class="property">class </em><code class="sig-prename descclassname">django_filters.groups.</code><code class="sig-name descname">CombinedRequiredGroup</code><span class="sig-paren">(</span><em class="sig-param">filters</em>, <em class="sig-param">combine=&lt;built-in function and_&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#django_filters.groups.CombinedRequiredGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>A group of mutually required filters that result in a combined query.</p>
+<p>This combines the validation logic of a <code class="docutils literal notranslate"><span class="pre">RequiredGroup</span></code> with the
+filtering logic of a <code class="docutils literal notranslate"><span class="pre">CombinedGroup</span></code>.</p>
+<dl class="attribute">
+<dt id="django_filters.groups.CombinedRequiredGroup.filters">
+<code class="sig-name descname">filters</code><a class="headerlink" href="#django_filters.groups.CombinedRequiredGroup.filters" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set of filter names to operate on.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="django_filters.groups.CombinedRequiredGroup.combine">
+<code class="sig-name descname">combine</code><a class="headerlink" href="#django_filters.groups.CombinedRequiredGroup.combine" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that combines two <code class="docutils literal notranslate"><span class="pre">Q</span></code> objects. Defaults to
+<code class="docutils literal notranslate"><span class="pre">operator.and_</span></code>. For OR operations, use <code class="docutils literal notranslate"><span class="pre">operator.or_</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="widgets.html" class="btn btn-neutral float-right" title="Widget Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="fields.html" class="btn btn-neutral float-left" title="Field Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Alex Gaynor, Carlton Gibson and others.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

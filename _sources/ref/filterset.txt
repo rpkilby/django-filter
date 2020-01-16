@@ -10,6 +10,7 @@ Meta options
 - :ref:`model <model>`
 - :ref:`fields <fields>`
 - :ref:`exclude <exclude>`
+- :ref:`groups <groups>`
 - :ref:`form <form>`
 - :ref:`filter_overrides <filter_overrides>`
 
@@ -25,7 +26,7 @@ based on the underlying model field's type. This option must be combined with
 either the ``fields`` or ``exclude`` option, which is the same requirement for
 Django's ``ModelForm`` class, detailed `here`__.
 
-__ https://docs.djangoproject.com/en/dev/topics/forms/modelforms/#selecting-the-fields-to-use
+__ https://docs.djangoproject.com/en/stable/topics/forms/modelforms/#selecting-the-fields-to-use
 
 .. code-block:: python
 
@@ -69,7 +70,7 @@ in ``fields``. The dictionary syntax will create a filter for each lookup
 expression declared for its corresponding model field. These expressions may
 include both transforms and lookups, as detailed in the `lookup reference`__.
 
-__ https://docs.djangoproject.com/en/dev/ref/models/lookups/#module-django.db.models.lookups
+__ https://docs.djangoproject.com/en/stable/ref/models/lookups/#module-django.db.models.lookups
 
 
 .. _exclude:
@@ -87,6 +88,26 @@ declared directly  on the ``FilterSet``.
         class Meta:
             model = User
             exclude = ['password']
+
+
+.. _groups:
+
+Process filters together with ``groups``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``groups`` option accepts a list of ``BaseFilterGroup`` instances, enabling
+each group's filters to be validated and filtered together. For more information,
+see :doc:`group reference </ref/groups>`.
+
+.. code-block:: python
+
+    class UserFilter(django_filters.FilterSet):
+        class Meta:
+            model = User
+            fields = ['username', 'first_name', 'last_name']
+            groups = [
+                RequiredGroup(['first_name', 'last_name']),
+            ]
 
 
 .. _form:

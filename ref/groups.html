@@ -183,18 +183,17 @@
   <div class="section" id="group-reference">
 <h1>Group Reference<a class="headerlink" href="#group-reference" title="Permalink to this headline">¶</a></h1>
 <p>By default, a <code class="docutils literal notranslate"><span class="pre">FilterSet</span></code> validates and then filters its query parameters
-independently of each other, ultimately resulting in a sequence of chained
-<code class="docutils literal notranslate"><span class="pre">.filter()</span></code> calls. Due to the nature of filter chaining, it’s not trivial
-to, for example, make a group of filters mutually exclusive, or to OR them
-together into a single filter call.</p>
+independently of each other, ultimately resulting in a chain of <code class="docutils literal notranslate"><span class="pre">.filter()</span></code>
+calls. Due to the nature of filter chaining, it’s not trivial to, for example,
+make a group of filters that are mutually exclusive to each other.</p>
 <p>Filter groups solve this limitation by processing subsets of parameters
 together, enabling higher level validation and filtering behavior.</p>
 <div class="section" id="validation">
 <h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
 <p>A filter group only applies group-level validation. For example, a mutually
-exclusive group is only responsible for validating that one of its parameters
-is present. It is not responsible for individual value validation, which is
-still performed by the underlying filter instances.</p>
+exclusive group is responsible for validating that <em>only</em> one of its parameters
+is present. It is not responsible for validating the individual values, which
+is still performed by the underlying filter instances.</p>
 </div>
 <div class="section" id="filtering">
 <h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
@@ -237,7 +236,7 @@ constructs a <code class="docutils literal notranslate"><span class="pre">Q</spa
 <dd><p>Base class for validating &amp; filtering query parameters as a group.</p>
 <dl class="method">
 <dt id="django_filters.groups.BaseFilterGroup.validate">
-<code class="sig-name descname">validate</code><span class="sig-paren">(</span><em class="sig-param">form</em>, <em class="sig-param">**data</em><span class="sig-paren">)</span><a class="headerlink" href="#django_filters.groups.BaseFilterGroup.validate" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">validate</code><span class="sig-paren">(</span><em class="sig-param">form</em>, <em class="sig-param">**data</em><span class="sig-paren">)</span><a class="headerlink" href="#django_filters.groups.BaseFilterGroup.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validate the subset of cleaned data provided by the form.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -254,7 +253,7 @@ the group.</p></li>
 
 <dl class="method">
 <dt id="django_filters.groups.BaseFilterGroup.filter">
-<code class="sig-name descname">filter</code><span class="sig-paren">(</span><em class="sig-param">qs</em>, <em class="sig-param">**data</em><span class="sig-paren">)</span><a class="headerlink" href="#django_filters.groups.BaseFilterGroup.filter" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">filter</code><span class="sig-paren">(</span><em class="sig-param">qs</em>, <em class="sig-param">**data</em><span class="sig-paren">)</span><a class="headerlink" href="#django_filters.groups.BaseFilterGroup.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter the result queryset with the subset of cleaned data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -263,6 +262,9 @@ the group.</p></li>
 <li><p><strong>**data</strong> – The subset of a form’s <code class="docutils literal notranslate"><span class="pre">cleaned_data</span></code> for the filters in
 the group.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The filtered queryset instance.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -243,9 +243,18 @@ other parts of the library. The following classes are affected:</p>
 </div>
 <div class="section" id="filterset-meta-together-option-removed-791">
 <h3>FilterSet <code class="docutils literal notranslate"><span class="pre">Meta.together</span></code> option removed (<a class="reference external" href="https://github.com/carltongibson/django-filter/pull/791">#791</a>)<a class="headerlink" href="#filterset-meta-together-option-removed-791" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">Meta.together</span></code> has been deprecated in favor of userland implementations
-that override the <code class="docutils literal notranslate"><span class="pre">clean</span></code> method of the <code class="docutils literal notranslate"><span class="pre">Meta.form</span></code> class. An example will
-be provided in a “recipes” section in future docs.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Meta.together</span></code> has been deprecated, and has now been replaced by the
+<code class="docutils literal notranslate"><span class="pre">Meta.groups</span></code> option, which provides a more generic and flexible interface.
+For more information, see the <a class="reference internal" href="../ref/groups.html"><span class="doc">group reference</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ProductFilter</span><span class="p">(</span><span class="n">django_filters</span><span class="o">.</span><span class="n">FilterSet</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Product</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="s1">&#39;release_date&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]</span>
+        <span class="n">groups</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">RequiredGroup</span><span class="p">([</span><span class="s1">&#39;rating&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">]),</span>
+        <span class="p">]</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="filterset-strictness-handling-moved-to-view-788">
 <h3>FilterSet “strictness” handling moved to view (<a class="reference external" href="https://github.com/carltongibson/django-filter/pull/788">#788</a>)<a class="headerlink" href="#filterset-strictness-handling-moved-to-view-788" title="Permalink to this headline">¶</a></h3>

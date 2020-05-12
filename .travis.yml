@@ -20,6 +20,8 @@ jobs:
     - { python: "3.8", env: TOXFACTOR=py38 }
 
     - python: "3.8"
+      env: TOXENV=black
+    - python: "3.8"
       env: TOXENV=isort,lint,docs
     - python: "3.8"
       env: TOXENV=warnings

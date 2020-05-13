@@ -12,9 +12,7 @@ from .utils import MigrationNotice, RenameAttributesBase
 
 # TODO: remove metaclass in 2.1
 class FilterMixinRenames(RenameAttributesBase):
-    renamed_attributes = (
-        ('filter_fields', 'filterset_fields', MigrationNotice),
-    )
+    renamed_attributes = (('filter_fields', 'filterset_fields', MigrationNotice),)
 
 
 class FilterMixin(metaclass=FilterMixinRenames):
@@ -54,9 +52,9 @@ class FilterMixin(metaclass=FilterMixinRenames):
             'request': self.request,
         }
         try:
-            kwargs.update({
-                'queryset': self.get_queryset(),
-            })
+            kwargs.update(
+                {'queryset': self.get_queryset(),}
+            )
         except ImproperlyConfigured:
             # ignore the error here if the filterset has a model defined
             # to acquire a queryset from

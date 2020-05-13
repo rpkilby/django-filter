@@ -6,14 +6,11 @@ from .utils import deprecate
 
 DEFAULTS = {
     'DISABLE_HELP_TEXT': False,
-
     'DEFAULT_LOOKUP_EXPR': 'exact',
-
     # empty/null choices
     'EMPTY_CHOICE_LABEL': '---------',
     'NULL_CHOICE_LABEL': None,
     'NULL_CHOICE_VALUE': 'null',
-
     'VERBOSE_LOOKUPS': {
         # transforms don't need to be verbose, since their expressions are chained
         'date': _('date'),
@@ -24,7 +21,6 @@ DEFAULTS = {
         'hour': _('hour'),
         'minute': _('minute'),
         'second': _('second'),
-
         # standard lookups
         'exact': _(''),
         'iexact': _(''),
@@ -44,7 +40,6 @@ DEFAULTS = {
         'regex': _('matches regex'),
         'iregex': _('matches regex'),
         'search': _('search'),
-
         # postgres lookups
         'contained_by': _('is contained by'),
         'overlap': _('overlaps'),

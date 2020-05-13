@@ -4,11 +4,7 @@ from collections import OrderedDict
 from django import forms
 from django.db import models
 from django.db.models.constants import LOOKUP_SEP
-from django.db.models.fields.related import (
-    ManyToManyRel,
-    ManyToOneRel,
-    OneToOneRel
-)
+from django.db.models.fields.related import ManyToManyRel, ManyToOneRel, OneToOneRel
 
 from .conf import settings
 from .constants import ALL_FIELDS
@@ -26,14 +22,9 @@ from .filters import (
     ModelMultipleChoiceFilter,
     NumberFilter,
     TimeFilter,
-    UUIDFilter
+    UUIDFilter,
 )
-from .utils import (
-    get_all_model_fields,
-    get_model_field,
-    resolve_field,
-    try_dbfield
-)
+from .utils import get_all_model_fields, get_model_field, resolve_field, try_dbfield
 
 
 def remote_queryset(field):
@@ -116,29 +107,28 @@ class FilterSetMetaclass(type):
 
 
 FILTER_FOR_DBFIELD_DEFAULTS = {
-    models.AutoField:                   {'filter_class': NumberFilter},
-    models.CharField:                   {'filter_class': CharFilter},
-    models.TextField:                   {'filter_class': CharFilter},
-    models.BooleanField:                {'filter_class': BooleanFilter},
-    models.DateField:                   {'filter_class': DateFilter},
-    models.DateTimeField:               {'filter_class': DateTimeFilter},
-    models.TimeField:                   {'filter_class': TimeFilter},
-    models.DurationField:               {'filter_class': DurationFilter},
-    models.DecimalField:                {'filter_class': NumberFilter},
-    models.SmallIntegerField:           {'filter_class': NumberFilter},
-    models.IntegerField:                {'filter_class': NumberFilter},
-    models.PositiveIntegerField:        {'filter_class': NumberFilter},
-    models.PositiveSmallIntegerField:   {'filter_class': NumberFilter},
-    models.FloatField:                  {'filter_class': NumberFilter},
-    models.NullBooleanField:            {'filter_class': BooleanFilter},
-    models.SlugField:                   {'filter_class': CharFilter},
-    models.EmailField:                  {'filter_class': CharFilter},
-    models.FilePathField:               {'filter_class': CharFilter},
-    models.URLField:                    {'filter_class': CharFilter},
-    models.GenericIPAddressField:       {'filter_class': CharFilter},
-    models.CommaSeparatedIntegerField:  {'filter_class': CharFilter},
-    models.UUIDField:                   {'filter_class': UUIDFilter},
-
+    models.AutoField: {'filter_class': NumberFilter},
+    models.CharField: {'filter_class': CharFilter},
+    models.TextField: {'filter_class': CharFilter},
+    models.BooleanField: {'filter_class': BooleanFilter},
+    models.DateField: {'filter_class': DateFilter},
+    models.DateTimeField: {'filter_class': DateTimeFilter},
+    models.TimeField: {'filter_class': TimeFilter},
+    models.DurationField: {'filter_class': DurationFilter},
+    models.DecimalField: {'filter_class': NumberFilter},
+    models.SmallIntegerField: {'filter_class': NumberFilter},
+    models.IntegerField: {'filter_class': NumberFilter},
+    models.PositiveIntegerField: {'filter_class': NumberFilter},
+    models.PositiveSmallIntegerField: {'filter_class': NumberFilter},
+    models.FloatField: {'filter_class': NumberFilter},
+    models.NullBooleanField: {'filter_class': BooleanFilter},
+    models.SlugField: {'filter_class': CharFilter},
+    models.EmailField: {'filter_class': CharFilter},
+    models.FilePathField: {'filter_class': CharFilter},
+    models.URLField: {'filter_class': CharFilter},
+    models.GenericIPAddressField: {'filter_class': CharFilter},
+    models.CommaSeparatedIntegerField: {'filter_class': CharFilter},
+    models.UUIDField: {'filter_class': UUIDFilter},
     # Forward relationships
     models.OneToOneField: {
         'filter_class': ModelChoiceFilter,
@@ -158,11 +148,8 @@ FILTER_FOR_DBFIELD_DEFAULTS = {
     },
     models.ManyToManyField: {
         'filter_class': ModelMultipleChoiceFilter,
-        'extra': lambda f: {
-            'queryset': remote_queryset(f),
-        },
+        'extra': lambda f: {'queryset': remote_queryset(f),},
     },
-
     # Reverse relationships
     OneToOneRel: {
         'filter_class': ModelChoiceFilter,
@@ -173,15 +160,11 @@ FILTER_FOR_DBFIELD_DEFAULTS = {
     },
     ManyToOneRel: {
         'filter_class': ModelMultipleChoiceFilter,
-        'extra': lambda f: {
-            'queryset': remote_queryset(f),
-        },
+        'extra': lambda f: {'queryset': remote_queryset(f),},
     },
     ManyToManyRel: {
         'filter_class': ModelMultipleChoiceFilter,
-        'extra': lambda f: {
-            'queryset': remote_queryset(f),
-        },
+        'extra': lambda f: {'queryset': remote_queryset(f),},
     },
 }
 
@@ -298,7 +281,9 @@ class BaseFilterSet(object):
         # Remove excluded fields
         exclude = exclude or []
         if not isinstance(fields, dict):
-            fields = [(f, [settings.DEFAULT_LOOKUP_EXPR]) for f in fields if f not in exclude]
+            fields = [
+                (f, [settings.DEFAULT_LOOKUP_EXPR]) for f in fields if f not in exclude
+            ]
         else:
             fields = [(f, lookups) for f, lookups in fields.items() if f not in exclude]
 
@@ -476,6 +461,7 @@ class FilterSet(BaseFilterSet, metaclass=FilterSetMetaclass):
 
 def filterset_factory(model, fields=ALL_FIELDS):
     meta = type(str('Meta'), (object,), {'model': model, 'fields': fields})
-    filterset = type(str('%sFilterSet' % model._meta.object_name),
-                     (FilterSet,), {'Meta': meta})
+    filterset = type(
+        str('%sFilterSet' % model._meta.object_name), (FilterSet,), {'Meta': meta}
+    )
     return filterset

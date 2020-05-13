@@ -83,9 +83,12 @@ class RenameAttributesBase(type):
             old_name, new_name, deprecation_warning = renamed_attribute
 
             if old_name == name:
-                warnings.warn("`%s.%s` attribute should be renamed `%s`."
-                              % (metacls.__name__, old_name, new_name),
-                              deprecation_warning, 3)
+                warnings.warn(
+                    "`%s.%s` attribute should be renamed `%s`."
+                    % (metacls.__name__, old_name, new_name),
+                    deprecation_warning,
+                    3,
+                )
                 return new_name
 
         return name

@@ -94,7 +94,7 @@ class Filter(object):
 
     def get_method(self, qs):
         """Return filter method based on whether we're excluding
-           or simply filtering.
+        or simply filtering.
         """
         return qs.exclude if self.exclude else qs.filter
 
@@ -177,7 +177,9 @@ class ChoiceFilter(Filter):
         if value != self.null_value:
             return super().filter(qs, value)
 
-        qs = self.get_method(qs)(**{'%s__%s' % (self.field_name, self.lookup_expr): None})
+        qs = self.get_method(qs)(
+            **{'%s__%s' % (self.field_name, self.lookup_expr): None}
+        )
         return qs.distinct() if self.distinct else qs
 
 

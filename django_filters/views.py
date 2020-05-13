@@ -75,10 +75,13 @@ class BaseFilterView(FilterMixin, MultipleObjectMixin, View):
         filterset_class = self.get_filterset_class()
         self.filterset = self.get_filterset(filterset_class)
 
-        if not self.filterset.is_bound or self.filterset.is_valid() or not self.get_strict():
-            self.object_list = self.filterset.qs
+        if self.filterset.is_bound:
+            if self.filterset.is_valid() or not self.get_strict():
+                self.object_list = self.filterset.qs
+            else:
+                self.object_list = self.filterset.queryset.none()
         else:
-            self.object_list = self.filterset.queryset.none()
+            self.object_list = self.filterset.queryset.all()
 
         context = self.get_context_data(
             filter=self.filterset, object_list=self.object_list

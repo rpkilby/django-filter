@@ -52,9 +52,7 @@ class FilterMixin(metaclass=FilterMixinRenames):
             'request': self.request,
         }
         try:
-            kwargs.update(
-                {'queryset': self.get_queryset(),}
-            )
+            kwargs.update({'queryset': self.get_queryset()})
         except ImproperlyConfigured:
             # ignore the error here if the filterset has a model defined
             # to acquire a queryset from

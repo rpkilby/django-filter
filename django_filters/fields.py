@@ -171,10 +171,7 @@ class BaseCSVField(forms.Field):
             % (self.__class__.__name__, repr(widget))
         )
 
-        bases = (
-            self.base_widget_class,
-            widget,
-        )
+        bases = (self.base_widget_class, widget)
         return type(str('CSV%s' % widget.__name__), bases, {})
 
     def clean(self, value):
@@ -188,7 +185,9 @@ class BaseRangeField(BaseCSVField):
     # input would only allow a user to input one value and would always fail.
     widget = CSVWidget
 
-    default_error_messages = {'invalid_values': _('Range query expects two values.')}
+    default_error_messages = {
+        'invalid_values': _('Range query expects two values.'),
+    }
 
     def clean(self, value):
         value = super().clean(value)

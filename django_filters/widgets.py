@@ -159,12 +159,22 @@ class BooleanWidget(forms.Select):
     """
 
     def __init__(self, attrs=None):
-        choices = (('', _('Unknown')), ('true', _('Yes')), ('false', _('No')))
+        choices = (
+            ('', _('Unknown')),
+            ('true', _('Yes')),
+            ('false', _('No')),
+        )
         super().__init__(attrs, choices)
 
     def render(self, name, value, attrs=None, renderer=None):
         try:
-            value = {True: 'true', False: 'false', '1': 'true', '0': 'false'}[value]
+            values = {
+                True: 'true',
+                False: 'false',
+                '1': 'true',
+                '0': 'false',
+            }
+            value = values[value]
         except KeyError:
             value = ''
         return super().render(name, value, attrs, renderer=renderer)

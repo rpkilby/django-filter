@@ -84,8 +84,9 @@ class BaseFilterView(FilterMixin, MultipleObjectMixin, View):
         else:
             self.object_list = self.filterset.queryset.none()
 
-        context = self.get_context_data(filter=self.filterset,
-                                        object_list=self.object_list)
+        context = self.get_context_data(
+            filter=self.filterset, object_list=self.object_list
+        )
         return self.render_to_response(context)
 
 
@@ -99,9 +100,15 @@ class FilterView(MultipleObjectTemplateResponseMixin, BaseFilterView):
     template_name_suffix = '_filter'
 
 
-def object_filter(request, model=None, queryset=None, template_name=None,
-                  extra_context=None, context_processors=None,
-                  filter_class=None):
+def object_filter(
+    request,
+    model=None,
+    queryset=None,
+    template_name=None,
+    extra_context=None,
+    context_processors=None,
+    filter_class=None,
+):
     class ECFilterView(FilterView):
         """Handle the extra_context from the functional object_filter view"""
 

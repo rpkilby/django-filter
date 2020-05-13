@@ -66,8 +66,17 @@ class Filter(object):
     creation_counter = 0
     field_class = forms.Field
 
-    def __init__(self, field_name=None, lookup_expr=None, *, label=None,
-                 method=None, distinct=False, exclude=False, **kwargs):
+    def __init__(
+        self,
+        field_name=None,
+        lookup_expr=None,
+        *,
+        label=None,
+        method=None,
+        distinct=False,
+        exclude=False,
+        **kwargs
+    ):
         if lookup_expr is None:
             lookup_expr = settings.DEFAULT_LOOKUP_EXPR
         self.field_name = field_name
@@ -413,27 +422,30 @@ class DateRangeFilter(ChoiceFilter):
     ]
 
     filters = {
-        'today': lambda qs, name: qs.filter(**{
-            '%s__year' % name: now().year,
-            '%s__month' % name: now().month,
-            '%s__day' % name: now().day
-        }),
-        'yesterday': lambda qs, name: qs.filter(**{
-            '%s__year' % name: (now() - timedelta(days=1)).year,
-            '%s__month' % name: (now() - timedelta(days=1)).month,
-            '%s__day' % name: (now() - timedelta(days=1)).day,
-        }),
-        'week': lambda qs, name: qs.filter(**{
-            '%s__gte' % name: _truncate(now() - timedelta(days=7)),
-            '%s__lt' % name: _truncate(now() + timedelta(days=1)),
-        }),
-        'month': lambda qs, name: qs.filter(**{
-            '%s__year' % name: now().year,
-            '%s__month' % name: now().month
-        }),
-        'year': lambda qs, name: qs.filter(**{
-            '%s__year' % name: now().year,
-        }),
+        'today': lambda qs, name: qs.filter(
+            **{
+                '%s__year' % name: now().year,
+                '%s__month' % name: now().month,
+                '%s__day' % name: now().day,
+            }
+        ),
+        'yesterday': lambda qs, name: qs.filter(
+            **{
+                '%s__year' % name: (now() - timedelta(days=1)).year,
+                '%s__month' % name: (now() - timedelta(days=1)).month,
+                '%s__day' % name: (now() - timedelta(days=1)).day,
+            }
+        ),
+        'week': lambda qs, name: qs.filter(
+            **{
+                '%s__gte' % name: _truncate(now() - timedelta(days=7)),
+                '%s__lt' % name: _truncate(now() + timedelta(days=1)),
+            }
+        ),
+        'month': lambda qs, name: qs.filter(
+            **{'%s__year' % name: now().year, '%s__month' % name: now().month}
+        ),
+        'year': lambda qs, name: qs.filter(**{'%s__year' % name: now().year,}),
     }
 
     def __init__(self, choices=None, filters=None, *args, **kwargs):
@@ -586,10 +598,13 @@ class LookupChoiceFilter(Filter):
         )
 
     """
+
     field_class = forms.CharField
     outer_class = LookupChoiceField
 
-    def __init__(self, field_name=None, lookup_choices=None, field_class=None, **kwargs):
+    def __init__(
+        self, field_name=None, lookup_choices=None, field_class=None, **kwargs
+    ):
         self.empty_label = kwargs.pop('empty_label', settings.EMPTY_CHOICE_LABEL)
 
         super(LookupChoiceFilter, self).__init__(field_name=field_name, **kwargs)
@@ -730,8 +745,9 @@ class OrderingFilter(BaseCSVFilter, ChoiceFilter):
             return OrderedDict(fields)
 
         # convert iterable of values => iterable of pairs (field name, param name)
-        assert is_iterable(fields), \
-            "'fields' must be an iterable (e.g., a list, tuple, or mapping)."
+        assert is_iterable(
+            fields
+        ), "'fields' must be an iterable (e.g., a list, tuple, or mapping)."
 
         # fields is an iterable of field names
         assert all(isinstance(field, str) or

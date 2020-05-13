@@ -118,8 +118,12 @@ class DjangoFilterBackend(metaclass=RenameAttributes):
         # This is not compatible with widgets where the query param differs from the
         # filter's attribute name. Notably, this includes `MultiWidget`, where query
         # params will be of the format `<name>_0`, `<name>_1`, etc...
-        assert compat.coreapi is not None, 'coreapi must be installed to use `get_schema_fields()`'
-        assert compat.coreschema is not None, 'coreschema must be installed to use `get_schema_fields()`'
+        assert (
+            compat.coreapi is not None
+        ), 'coreapi must be installed to use `get_schema_fields()`'
+        assert (
+            compat.coreschema is not None
+        ), 'coreschema must be installed to use `get_schema_fields()`'
 
         try:
             queryset = view.get_queryset()
@@ -131,14 +135,19 @@ class DjangoFilterBackend(metaclass=RenameAttributes):
 
         filterset_class = self.get_filterset_class(view, queryset)
 
-        return [] if not filterset_class else [
-            compat.coreapi.Field(
-                name=field_name,
-                required=field.extra['required'],
-                location='query',
-                schema=self.get_coreschema_field(field)
-            ) for field_name, field in filterset_class.base_filters.items()
-        ]
+        return (
+            []
+            if not filterset_class
+            else [
+                compat.coreapi.Field(
+                    name=field_name,
+                    required=field.extra['required'],
+                    location='query',
+                    schema=self.get_coreschema_field(field),
+                )
+                for field_name, field in filterset_class.base_filters.items()
+            ]
+        )
 
     def get_schema_operation_parameters(self, view):
         try:

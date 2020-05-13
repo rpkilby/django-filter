@@ -110,8 +110,8 @@ class LookupChoiceField(forms.MultiValueField):
                     return Lookup(value=value, lookup_expr=lookup_expr)
                 else:
                     raise forms.ValidationError(
-                        self.error_messages['lookup_required'],
-                        code='lookup_required')
+                        self.error_messages['lookup_required'], code='lookup_required'
+                    )
         return None
 
 
@@ -161,8 +161,8 @@ class BaseCSVField(forms.Field):
     def _get_widget_class(self, widget):
         # passthrough, allows for override
         if isinstance(widget, BaseCSVWidget) or (
-                isinstance(widget, type) and
-                issubclass(widget, BaseCSVWidget)):
+            isinstance(widget, type) and issubclass(widget, BaseCSVWidget)
+        ):
             return widget
 
         # complain since we are unable to reconstruct widget instances
@@ -196,8 +196,8 @@ class BaseRangeField(BaseCSVField):
 
         if value and len(value) != 2:
             raise forms.ValidationError(
-                self.error_messages['invalid_values'],
-                code='invalid_values')
+                self.error_messages['invalid_values'], code='invalid_values'
+            )
 
         return value
 

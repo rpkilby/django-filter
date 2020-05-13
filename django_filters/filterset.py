@@ -106,8 +106,10 @@ class FilterSetMetaclass(type):
 
         base_filters = [
             (visit(name), f)
-            for base in bases if hasattr(base, 'declared_filters')
-            for name, f in base.declared_filters.items() if name not in known
+            for base in bases
+            if hasattr(base, 'declared_filters')
+            for name, f in base.declared_filters.items()
+            if name not in known
         ]
 
         return OrderedDict(base_filters + filters)
@@ -252,9 +254,9 @@ class BaseFilterSet(object):
         This method should be overridden if the form class needs to be
         customized relative to the filterset instance.
         """
-        fields = OrderedDict([
-            (name, filter_.field)
-            for name, filter_ in self.filters.items()])
+        fields = OrderedDict(
+            [(name, filter_.field) for name, filter_ in self.filters.items()]
+        )
 
         return type(str('%sForm' % self.__class__.__name__), (self._meta.form,), fields)
 
@@ -350,7 +352,9 @@ class BaseFilterSet(object):
                     continue
 
                 if field is not None:
-                    filters[filter_name] = cls.filter_for_field(field, field_name, lookup_expr)
+                    filters[filter_name] = cls.filter_for_field(
+                        field, field_name, lookup_expr
+                    )
 
         # Allow Meta.fields to contain declared filters *only* when a list/tuple
         if isinstance(cls._meta.fields, (list, tuple)):
@@ -417,6 +421,7 @@ class BaseFilterSet(object):
             return filter_class, params
 
         if lookup_type == 'in':
+
             class ConcreteInFilter(BaseInFilter, filter_class):
                 pass
 
@@ -427,6 +432,7 @@ class BaseFilterSet(object):
             return ConcreteInFilter, params
 
         if lookup_type == 'range':
+
             class ConcreteRangeFilter(BaseRangeFilter, filter_class):
                 pass
 

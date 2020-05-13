@@ -14,7 +14,7 @@ from .widgets import (
     CSVWidget,
     DateRangeWidget,
     LookupChoiceWidget,
-    RangeWidget
+    RangeWidget,
 )
 
 
@@ -23,9 +23,7 @@ class RangeField(forms.MultiValueField):
 
     def __init__(self, fields=None, *args, **kwargs):
         if fields is None:
-            fields = (
-                forms.DecimalField(),
-                forms.DecimalField())
+            fields = (forms.DecimalField(), forms.DecimalField())
         super().__init__(fields, *args, **kwargs)
 
     def compress(self, data_list):
@@ -38,9 +36,7 @@ class DateRangeField(RangeField):
     widget = DateRangeWidget
 
     def __init__(self, *args, **kwargs):
-        fields = (
-            forms.DateField(),
-            forms.DateField())
+        fields = (forms.DateField(), forms.DateField())
         super().__init__(fields, *args, **kwargs)
 
     def compress(self, data_list):
@@ -48,13 +44,11 @@ class DateRangeField(RangeField):
             start_date, stop_date = data_list
             if start_date:
                 start_date = handle_timezone(
-                    datetime.combine(start_date, time.min),
-                    False
+                    datetime.combine(start_date, time.min), False
                 )
             if stop_date:
                 stop_date = handle_timezone(
-                    datetime.combine(stop_date, time.max),
-                    False
+                    datetime.combine(stop_date, time.max), False
                 )
             return slice(start_date, stop_date)
         return None
@@ -64,9 +58,7 @@ class DateTimeRangeField(RangeField):
     widget = DateRangeWidget
 
     def __init__(self, *args, **kwargs):
-        fields = (
-            forms.DateTimeField(),
-            forms.DateTimeField())
+        fields = (forms.DateTimeField(), forms.DateTimeField())
         super().__init__(fields, *args, **kwargs)
 
 
@@ -74,9 +66,7 @@ class IsoDateTimeRangeField(RangeField):
     widget = DateRangeWidget
 
     def __init__(self, *args, **kwargs):
-        fields = (
-            IsoDateTimeField(),
-            IsoDateTimeField())
+        fields = (IsoDateTimeField(), IsoDateTimeField())
         super().__init__(fields, *args, **kwargs)
 
 
@@ -84,9 +74,7 @@ class TimeRangeField(RangeField):
     widget = DateRangeWidget
 
     def __init__(self, *args, **kwargs):
-        fields = (
-            forms.TimeField(),
-            forms.TimeField())
+        fields = (forms.TimeField(), forms.TimeField())
         super().__init__(fields, *args, **kwargs)
 
 
@@ -136,6 +124,7 @@ class IsoDateTimeField(forms.DateTimeField):
 
     Based on Gist example by David Medina https://gist.github.com/copitux/5773821
     """
+
     ISO_8601 = 'iso-8601'
     input_formats = [ISO_8601]
 
@@ -160,6 +149,7 @@ class BaseCSVField(forms.Field):
             pass
 
     """
+
     base_widget_class = BaseCSVWidget
 
     def __init__(self, *args, **kwargs):
@@ -176,9 +166,10 @@ class BaseCSVField(forms.Field):
             return widget
 
         # complain since we are unable to reconstruct widget instances
-        assert isinstance(widget, type), \
-            "'%s.widget' must be a widget class, not %s." \
+        assert isinstance(widget, type), (
+            "'%s.widget' must be a widget class, not %s."
             % (self.__class__.__name__, repr(widget))
+        )
 
         bases = (self.base_widget_class, widget, )
         return type(str('CSV%s' % widget.__name__), bases, {})
@@ -272,6 +263,7 @@ class ChoiceIteratorMixin(object):
         value = self.iterator(self, self._choices)
 
         self._choices = self.widget.choices = value
+
     choices = property(_get_choices, _set_choices)
 
 

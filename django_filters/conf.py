@@ -56,8 +56,7 @@ DEFAULTS = {
 }
 
 
-DEPRECATED_SETTINGS = [
-]
+DEPRECATED_SETTINGS = []
 
 
 def is_callable(value):
@@ -66,7 +65,6 @@ def is_callable(value):
 
 
 class Settings(object):
-
     def __getattr__(self, name):
         if name not in DEFAULTS:
             msg = "'%s' object has no attribute '%s'"

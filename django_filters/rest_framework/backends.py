@@ -46,14 +46,16 @@ class DjangoFilterBackend(metaclass=RenameAttributes):
         if filterset_class is None and hasattr(view, 'filter_class'):
             utils.deprecate(
                 "`%s.filter_class` attribute should be renamed `filterset_class`."
-                % view.__class__.__name__)
+                % view.__class__.__name__
+            )
             filterset_class = getattr(view, 'filter_class', None)
 
         # TODO: remove assertion in 2.1
         if filterset_fields is None and hasattr(view, 'filter_fields'):
             utils.deprecate(
                 "`%s.filter_fields` attribute should be renamed `filterset_fields`."
-                % view.__class__.__name__)
+                % view.__class__.__name__
+            )
             filterset_fields = getattr(view, 'filter_fields', None)
 
         if filterset_class:
@@ -61,9 +63,10 @@ class DjangoFilterBackend(metaclass=RenameAttributes):
 
             # FilterSets do not need to specify a Meta class
             if filterset_model and queryset is not None:
-                assert issubclass(queryset.model, filterset_model), \
-                    'FilterSet model %s does not match queryset model %s' % \
-                    (filterset_model, queryset.model)
+                assert issubclass(queryset.model, filterset_model), (
+                    'FilterSet model %s does not match queryset model %s'
+                    % (filterset_model, queryset.model)
+                )
 
             return filterset_class
 
@@ -109,9 +112,7 @@ class DjangoFilterBackend(metaclass=RenameAttributes):
             field_cls = compat.coreschema.Number
         else:
             field_cls = compat.coreschema.String
-        return field_cls(
-            description=str(field.extra.get('help_text', ''))
-        )
+        return field_cls(description=str(field.extra.get('help_text', '')))
 
     def get_schema_fields(self, view):
         # This is not compatible with widgets where the query param differs from the
@@ -160,9 +161,7 @@ class DjangoFilterBackend(metaclass=RenameAttributes):
                 'required': field.extra['required'],
                 'in': 'query',
                 'description': field.label if field.label is not None else field_name,
-                'schema': {
-                    'type': 'string',
-                },
+                'schema': {'type': 'string',},
             }
             if field.extra and 'choices' in field.extra:
                 parameter['schema']['enum'] = [c[0] for c in field.extra['choices']]

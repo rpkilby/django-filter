@@ -43,16 +43,16 @@ class LinkWidget(forms.Widget):
         for option_value, option_label in chain(self.choices, choices):
             if isinstance(option_label, (list, tuple)):
                 for option in option_label:
-                    output.append(
-                        self.render_option(name, selected_choices, *option))
+                    output.append(self.render_option(name, selected_choices, *option))
             else:
                 output.append(
-                    self.render_option(name, selected_choices,
-                                       option_value, option_label))
+                    self.render_option(
+                        name, selected_choices, option_value, option_label
+                    )
+                )
         return '\n'.join(output)
 
-    def render_option(self, name, selected_choices,
-                      option_value, option_label):
+    def render_option(self, name, selected_choices, option_value, option_label):
         option_value = force_str(option_value)
         if option_label == BLANK_CHOICE_DASH[0][1]:
             option_label = _("All")
@@ -66,7 +66,7 @@ class LinkWidget(forms.Widget):
         return self.option_string() % {
             'attrs': selected and ' class="selected"' or '',
             'query_string': url,
-            'label': force_str(option_label)
+            'label': force_str(option_label),
         }
 
     def option_string(self):
@@ -80,6 +80,7 @@ class SuffixedMultiWidget(forms.MultiWidget):
     - Suffixes must be unique.
     - There must be the same number of suffixes as fields.
     """
+
     suffixes = []
 
     def __init__(self, *args, **kwargs):

@@ -14,10 +14,10 @@ __version__ = '2.2.0'
 
 
 def parse_version(version):
-    '''
+    """
     '0.1.2.dev1' -> (0, 1, 2, 'dev1')
     '0.1.2' -> (0, 1, 2)
-    '''
+    """
     v = version.split('.')
     ret = []
     for p in v:
@@ -26,5 +26,6 @@ def parse_version(version):
         else:
             ret.append(p)
     return tuple(ret)
+
 
 VERSION = parse_version(__version__)

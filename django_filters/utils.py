@@ -36,6 +36,7 @@ class RenameAttributesBase(type):
 
     This is conceptually based on `django.utils.deprecation.RenameMethodsBase`.
     """
+
     renamed_attributes = ()
 
     def __new__(metacls, name, bases, attrs):
@@ -120,9 +121,10 @@ def get_all_model_fields(model):
     opts = model._meta
 
     return [
-        f.name for f in sorted(opts.fields + opts.many_to_many)
-        if not isinstance(f, models.AutoField) and
-        not (getattr(f.remote_field, 'parent_link', False))
+        f.name
+        for f in sorted(opts.fields + opts.many_to_many)
+        if not isinstance(f, models.AutoField)
+        and not (getattr(f.remote_field, 'parent_link', False))
     ]
 
 
